@@ -16,7 +16,12 @@ export function AddButton() {
   }
 
   function handleAddTask() {
-    getTask(task)
+    const newTask = {
+      id: Math.random(),
+      task,
+      isCompleted: false
+    }
+    getTask(newTask)
     setTask('')
   }
 

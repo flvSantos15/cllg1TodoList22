@@ -1,8 +1,13 @@
-import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 
+export type TTask = {
+  id: number
+  task: string
+  isCompleted: boolean
+}
 interface ITaskContextData {
-  task: string[]
-  getTask: (value: string) => void
+  task: TTask[]
+  getTask: (value: TTask) => void
 }
 
 interface ITaskProviderProps {
@@ -12,18 +17,11 @@ interface ITaskProviderProps {
 export const TaskContext = createContext({} as ITaskContextData)
 
 export function TaskProvider({ children }: ITaskProviderProps) {
-  const [task, setTask] = useState<string[]>([])
-  const [newTask, setNewTask] = useState('')
+  const [task, setTask] = useState<TTask[]>([])
 
-  function getTask(value: string) {
-    setNewTask(value)
+  function getTask(value: TTask) {
+    setTask([...task, value])
   }
-
-  useEffect(() => {
-    if (newTask) {
-      setTask([...task, newTask])
-    }
-  }, [newTask])
 
   return (
     <TaskContext.Provider value={{ task, getTask }}>
