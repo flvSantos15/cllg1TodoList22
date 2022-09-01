@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react'
+
+import { BsCheckCircleFill, BsCircle } from 'react-icons/bs'
 import { HiOutlineTrash } from 'react-icons/hi'
+
 import { TTask, useTask } from '../../context/useTask'
 import clipboard from '/assets/clipboard.svg'
 
@@ -64,8 +67,8 @@ export function TodoList() {
 
       {/* <div className="flex flex-col justify-center items-center gap-4 w-full h-[15.25rem] rounded-lg border-t border-t-solid border-t-[#333333]"> */}
       <div className="flex flex-col justify-center items-center gap-4 w-full rounded-lg border-t border-t-solid border-t-[#333333]">
-        {!todo ? (
-          <div className="flex flex-col justify-center items-center gap-4">
+        {!todo.length ? (
+          <div className="flex flex-col justify-center items-center gap-4 mt-4">
             <img
               src={clipboard}
               alt="imagem de uma pracheta vazia"
@@ -81,9 +84,21 @@ export function TodoList() {
             {todo.map((t) => {
               return (
                 <div key={t.id} className="flex items-center p-4 gap-3 w-full h-[4.5rem] bg-[#262626] border border-solid border-[#333333] shadow-[0px_2px_8px_rgba(0,0,0,0.06)] rounded-lg">
-                  <input type="checkbox" name="" id="" onClick={() => handleCheckTask(t.id)} className="w-[1rem] h-[1rem]" />
                   {t.isCompleted ? (
-                    <p className="font-[Inter] font-normal text-sm text-[#f2f2f2] w-[39.5rem] line-through">
+                    <BsCheckCircleFill
+                      color='#8284fa'
+                      size='1rem'
+                      onClick={() => handleCheckTask(t.id)}
+                    />
+                  ) : (
+                    <BsCircle
+                      color='#4ea8de'
+                      size='1rem'
+                      onClick={() => handleCheckTask(t.id)}
+                    />
+                  )}
+                  {t.isCompleted ? (
+                    <p className="font-[Inter] font-normal text-sm text-[#808080] w-[39.5rem] line-through">
                       {t.task}
                     </p>
                   ) : (
