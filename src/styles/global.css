@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-[#1a1a1a] text-zinc-100;
+}
+
+/* Produto */
+.purple {
+  @apply bg-[#8284fa];
+}
+
+.purple-dark {
+  @apply bg-[#5e60ce];
+}
+
+.blue {
+  @apply bg-[#4ea8de];
+}
+
+.blue-dark {
+  @apply bg-[#1e6f9f];
+}
+
+/* Base */
+.gray-700 {
+  @apply bg-[#0d0d0d];
+}
+.border-gray-700 {
+  @apply border border-solid border-[#0d0d0d];
+}
+.gray-600 {
+  @apply bg-[#1a1a1a];
+}
+.gray-500 {
+  @apply bg-[#262626];
+}
+.gray-400 {
+  @apply bg-[#333333];
+}
+.gray-300 {
+  @apply bg-[#808080];
+}
+.gray-200 {
+  @apply bg-[#d9d9d9];
+}
+.gray-100 {
+  @apply bg-[#f2f2f2];
+}
+.danger {
+  @apply bg-[#e25858];
+}
