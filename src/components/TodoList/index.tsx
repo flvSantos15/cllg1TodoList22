@@ -1,6 +1,9 @@
-import clipboard from '/assets/clipboard.svg'
+import { HiOutlineTrash } from 'react-icons/hi'
+import { useTask } from '../../context/useTask'
+// import clipboard from '/assets/clipboard.svg'
 
 export function TodoList() {
+  const { task } = useTask()
   return (
     <div className="flex flex-col items-start m-auto my-16 p-0 gap-6 w-[46rem] h-[17.938rem]">
       <div className="flex justify-between items-end p-0 w-full h-[1.188rem]">
@@ -19,8 +22,8 @@ export function TodoList() {
         </div>
       </div>
 
-      <div className="flex flex-col justify-center items-center py-[4rem] px-[1.5rem] gap-4 w-full h-[15.25rem] rounded-lg border-t border-t-solid border-t-[#333333]">
-        <div className="flex flex-col justify-center items-center gap-4">
+      <div className="flex flex-col justify-center items-center gap-4 w-full h-[15.25rem] rounded-lg border-t border-t-solid border-t-[#333333]">
+        {/* <div className="flex flex-col justify-center items-center gap-4">
           <img
             src={clipboard}
             alt="imagem de uma pracheta vazia"
@@ -30,7 +33,30 @@ export function TodoList() {
             Você ainda não tem tarefas cadastradas <br />
             <span className="font-normal">Crie tarefas e organize seus itens a fazer</span>
           </p>
-        </div>
+        </div> */}
+        {task.map((t) => {
+          return (
+            <div key={t} className="flex items-start p-4 gap-3 w-full h-[4.5rem] bg-[#262626] border border-solid border-[#333333] shadow-[0px_2px_8px_rgba(0,0,0,0.06)] rounded-lg">
+              <input type="checkbox" name="" id="" className="w-[1rem] h-[1rem]" />
+              <p className="font-[Inter] font-normal text-sm text-[#f2f2f2] w-[39.5rem]">
+                {t}
+              </p>
+              <button className="w-[1.5rem] h-[1.5rem]">
+                <HiOutlineTrash />
+              </button>
+            </div>
+          )
+        }
+        )}
+        {/* <div className="flex items-start p-4 gap-3 w-full h-[4.5rem] bg-[#262626] border border-solid border-[#333333] shadow-[0px_2px_8px_rgba(0,0,0,0.06)] rounded-lg">
+          <input type="checkbox" name="" id="" className="w-[1rem] h-[1rem]" />
+          <p className="font-[Inter] font-normal text-sm text-[#f2f2f2] w-[39.5rem] line-through">
+            Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer
+          </p>
+          <button className="w-[1.5rem] h-[1.5rem]">
+            <HiOutlineTrash />
+          </button>
+        </div> */}
       </div>
     </div>
   )
