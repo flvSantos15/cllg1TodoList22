@@ -2,19 +2,18 @@
 
 <div id='about'>
   <h1 align="center">
-	  todo-list 🚀
+	  todo-list app 🚀
   </h1>
-  <h5 align="left">
+  <!-- <h5 align="left">
 	  🚀 todo-list is an to-do list application.
-  </h5>
-  <h5 align="left">
+  </h5> -->
+  <!-- <h5 align="left">
 	  This application was a Rocketseat Bootcamp challenge.
-  </h5>
+  </h5> -->
   <!-- <h5 align="left">
 	  As a developer I can never stop learning, I added some new functionallities to take
     the application to the next level, 
-    the functionallities are Dark and Light mode of course, 
-    I made E2E tests with cypress.
+    like edit todo, responsiveness, saving on localStorage.
   </h5> -->
 </div>
 
@@ -24,8 +23,9 @@
 
 - [About](#about)
 - [Final application](#application)
-  - [Requirements](#requirements)
+  <!-- - [Requirements](#requirements) -->
 - [Tecnologies](#technologies)
+- [Features](#features)
 <!--te-->
 
 ## Getting Started
@@ -37,38 +37,38 @@
   - [TypeScript](https://www.typescriptlang.org/)
   - [React-icons](https://react-icons.github.io/react-icons/)
   - [ViteJS](https://vitejs.dev/)
-  - [ViteJS](https://vitejs.dev/)
+  - [Radix](https://www.radix-ui.com/docs/primitives/overview/getting-started)
   - [TailwindCSS](https://tailwindcss.com/docs/installation)
-  <!-- - [Cypress](https://docs.cypress.io/) -->
+  <!-- - [Firebase](https://tailwindcss.com/docs/installation) -->
 </div>
 
 <div id='features'>
   <h2>Features</h2>
   
     - [x] Cria um to-do
-    - [ ] Editar um to-do
+    - [x] Editar um to-do
     - [x] Deleta um to-do
     - [x] Marca um to-do como concluído
     - [x] Marca um to-do como não concluído
-    - [ ] Salva o to-do no localStorage
-    - [ ] Testes com Jest
-    - [ ] Responsividade
+    - [x] Salva o to-do no localStorage
+    - [x] Responsividade
+    - [ ] Integração com Firebase
 </div>
 
-<div id='aprendizados'>
+<!-- <div id='aprendizados'>
   <h2>Aprendizados</h2>
-  
+
     - light e dark mode com styled-components
     - persistir informaçoes no localStorage
     - utlizar o hook useReducer
     - criar um contexto para compartilhar informações pela aplicação
     - testes E2E com cypress
-</div>
+</div> -->
 
 <div id='application'>
   <h2>You can see the final application here: </h2>
   
-  - [Ignite Timer](https://ignite-timer-flv-pa6g-5n9v5jmmq-flvsantos15.vercel.app/)
+  - [todo-list app](https://cllg1-todo-list22.vercel.app/)
 </div>
 
 <div id='author'>

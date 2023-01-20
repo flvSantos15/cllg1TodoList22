@@ -7,11 +7,11 @@ import plusIcon from '/assets/plus.svg'
 export function TodoForm() {
   const { getTask } = useTask()
 
-  const [task, setTask] = useState('')
+  const [taskValue, setTaskValue] = useState('')
 
   const handleCreateNewTask = (event: ChangeEvent<HTMLInputElement>) => {
     event.target.setCustomValidity('')
-    setTask(event.target.value)
+    setTaskValue(event.target.value)
   }
 
   const handleNewCommentInvalid = (event: InvalidEvent<HTMLInputElement>) => {
@@ -21,22 +21,22 @@ export function TodoForm() {
   const handleAddTask = () => {
     const newTask = {
       id: Math.random(),
-      task,
+      task: taskValue,
       isCompleted: false
     }
 
     getTask(newTask)
-    setTask('')
+    setTaskValue('')
   }
 
-  const isNewTaskEmpty = task ? false : true
+  const isNewTaskEmpty = taskValue ? false : true
 
   return (
     <form className="flex flex-col xl:flex-row md:flex-row sm:flex-col items-center m-auto mt-[-28px] gap-2 w-[90%] xl:w-[55%] md:w-[75%] sm:w-[90%] xl:h-[3.375rem]">
       <input
         type="text"
         placeholder="Adicione um nova tarefa"
-        value={task}
+        value={taskValue}
         onChange={handleCreateNewTask}
         onInvalid={handleNewCommentInvalid}
         required
