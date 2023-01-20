@@ -1,10 +1,11 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useState } from 'react'
 
 export type TTask = {
   id: number
   task: string
   isCompleted: boolean
 }
+
 interface ITaskContextData {
   task: TTask[]
   getTask: (value: TTask) => void
@@ -19,8 +20,8 @@ export const TaskContext = createContext({} as ITaskContextData)
 export function TaskProvider({ children }: ITaskProviderProps) {
   const [task, setTask] = useState<TTask[]>([])
 
-  function getTask(value: TTask) {
-    setTask([...task, value])
+  const getTask = (value: TTask) => {
+    setTask((state) => [...state, value])
   }
 
   return (
