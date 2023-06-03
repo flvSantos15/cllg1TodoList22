@@ -40,7 +40,7 @@ export function TodoForm() {
         onChange={handleCreateNewTask}
         onInvalid={handleNewCommentInvalid}
         required
-        className="flex items-center w-full xl:w-[39.875rem] md:w-[80%] sm:w-full h-[3.375rem] rounded-lg p-4 gap-2 border border-solid border-[#0d0d0d] gray-500 focus:border focus:border-solid focus:border-[#5E60CE] outline-none"
+        className="flex items-center flex-1 w-full h-[3.375rem] rounded-lg p-4 gap-2 border border-solid border-[#0d0d0d] gray-500 focus:border focus:border-solid focus:border-[#5E60CE] outline-none"
       />
       <button
         type="submit"
