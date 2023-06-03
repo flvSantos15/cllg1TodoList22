@@ -40,19 +40,21 @@
   - [Radix](https://www.radix-ui.com/docs/primitives/overview/getting-started)
   - [TailwindCSS](https://tailwindcss.com/docs/installation)
   <!-- - [Firebase](https://tailwindcss.com/docs/installation) -->
+  <!-- - [Redux]()]-->
 </div>
 
 <div id='features'>
   <h2>Features</h2>
   
-    - [x] Cria um to-do
-    - [x] Editar um to-do
-    - [x] Deleta um to-do
-    - [x] Marca um to-do como concluído
-    - [x] Marca um to-do como não concluído
-    - [x] Salva o to-do no localStorage
-    - [x] Responsividade
-    - [ ] Integração com Firebase
+    - [x] Create a to-do
+    - [x] Edit a to-do
+    - [x] Delete a to-do
+    - [x] Update a to-do as completed
+    - [x] Update a to-do as incompleted
+    - [x] Save the to-do list in localStorage
+    - [x] Responsiveness
+    - [ ] Integration com Firebase
+    - [ ] Redux
 </div>
 
 <!-- <div id='aprendizados'>
