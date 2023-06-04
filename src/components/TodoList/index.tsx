@@ -67,18 +67,20 @@ export function TodoList() {
           <NoTodoCard />
         ) : (
           <>
-            {todo.map((t) => {
-              return (
-                <TodoItem
-                  key={t.id}
-                  taskTitle={t.task}
-                  taskId={t.id}
-                  isCompleted={t.isCompleted}
-                  onCheckTask={() => handleCheckTask(t)}
-                  onRemoveTask={() => handleRemoveTask(t.id)}
-                />
-              )
-            })}
+            {todo
+              .map((t) => {
+                return (
+                  <TodoItem
+                    key={t.id}
+                    taskTitle={t.task}
+                    taskId={t.id}
+                    isCompleted={t.isCompleted}
+                    onCheckTask={() => handleCheckTask(t)}
+                    onRemoveTask={() => handleRemoveTask(t.id)}
+                  />
+                )
+              })
+              .reverse()}
           </>
         )}
       </div>

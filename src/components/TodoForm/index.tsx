@@ -20,7 +20,7 @@ export function TodoForm() {
 
   const handleAddTask = () => {
     const newTask = {
-      id: Math.random(),
+      id: new Date().getTime(),
       task: taskValue,
       isCompleted: false
     }
