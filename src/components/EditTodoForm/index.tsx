@@ -4,10 +4,15 @@ import { useTask } from '../../context/useTask'
 
 interface EditTodoFormProps {
   taskId: number
+  status: boolean
   onCloseDialog: () => void
 }
 
-export function EditTodoForm({ taskId, onCloseDialog }: EditTodoFormProps) {
+export function EditTodoForm({
+  taskId,
+  status,
+  onCloseDialog
+}: EditTodoFormProps) {
   const { getTaskToEdit, task } = useTask()
 
   const [taskValue, setTaskValue] = useState('')
@@ -22,7 +27,7 @@ export function EditTodoForm({ taskId, onCloseDialog }: EditTodoFormProps) {
   }
 
   const handleAddTask = () => {
-    getTaskToEdit(taskId, taskValue)
+    getTaskToEdit(taskId, taskValue, status)
     setTaskValue('')
     onCloseDialog()
   }

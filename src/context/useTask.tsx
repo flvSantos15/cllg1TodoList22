@@ -16,7 +16,7 @@ interface ITaskContextData {
   task: TTask[]
   getTask: (value: TTask) => void
   removeTask: (id: number) => void
-  getTaskToEdit: (id: number, task: string) => void
+  getTaskToEdit: (id: number, task: string, status: boolean) => void
 }
 
 interface ITaskProviderProps {
@@ -46,12 +46,13 @@ export function TaskProvider({ children }: ITaskProviderProps) {
     })
   }
 
-  const getTaskToEdit = (id: number, taskText: string) => {
+  const getTaskToEdit = (id: number, taskText: string, taskStatus: boolean) => {
     const newTaskList = task.map((t) =>
       t.id === id
         ? {
             ...t,
-            task: taskText
+            task: taskText,
+            isCompleted: taskStatus
           }
         : t
     )

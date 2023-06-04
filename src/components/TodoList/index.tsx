@@ -7,21 +7,22 @@ import { TodoItem } from './TodoItem'
 import { NoTodoCard } from './NoTodoCard'
 
 export function TodoList() {
-  const { task, removeTask } = useTask()
+  const { task, removeTask, getTaskToEdit } = useTask()
 
   const [todo, setTodo] = useState<TTask[]>([])
   const [completedTodo, setCompletedTodo] = useState<TTask[]>([])
 
-  const handleCheckTask = (id: number) => {
-    const newTaskList = todo.map((t) =>
-      t.id === id
-        ? {
-            ...t,
-            isCompleted: !t.isCompleted
-          }
-        : t
-    )
-    setTodo(newTaskList)
+  const handleCheckTask = (task: TTask) => {
+    getTaskToEdit(task.id, task.task, !task.isCompleted)
+    // const newTaskList = todo.map((t) =>
+    //   t.id === id
+    //     ? {
+    //         ...t,
+    //         isCompleted: !t.isCompleted
+    //       }
+    //     : t
+    // )
+    // setTodo(newTaskList)
   }
 
   const handleRemoveTask = (id: number) => {
@@ -73,7 +74,7 @@ export function TodoList() {
                   taskTitle={t.task}
                   taskId={t.id}
                   isCompleted={t.isCompleted}
-                  onCheckTask={() => handleCheckTask(t.id)}
+                  onCheckTask={() => handleCheckTask(t)}
                   onRemoveTask={() => handleRemoveTask(t.id)}
                 />
               )
