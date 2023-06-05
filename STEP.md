@@ -9,3 +9,5 @@
 - NextAuth, signin, signup and signout with github
 - Separate notes for user
 - changes in layout for user photo and name
+- update all tasks as completed
+- remove all tasks

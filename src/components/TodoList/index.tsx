@@ -13,16 +13,8 @@ export function TodoList() {
   const [completedTodo, setCompletedTodo] = useState<TTask[]>([])
 
   const handleCheckTask = (task: TTask) => {
-    getTaskToEdit(task.id, task.task, !task.isCompleted)
-    // const newTaskList = todo.map((t) =>
-    //   t.id === id
-    //     ? {
-    //         ...t,
-    //         isCompleted: !t.isCompleted
-    //       }
-    //     : t
-    // )
-    // setTodo(newTaskList)
+    const { id, name, isCompleted } = task
+    getTaskToEdit(id, name, !isCompleted)
   }
 
   const handleRemoveTask = (id: number) => {
@@ -72,7 +64,7 @@ export function TodoList() {
                 return (
                   <TodoItem
                     key={t.id}
-                    taskTitle={t.task}
+                    taskTitle={t.name}
                     taskId={t.id}
                     isCompleted={t.isCompleted}
                     onCheckTask={() => handleCheckTask(t)}

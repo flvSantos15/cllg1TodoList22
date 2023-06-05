@@ -9,7 +9,7 @@ export function TodoListTitle({ title, subtitle, index }: TodoListTitleProps) {
     <div className="flex items-center p-0 gap-2 h-full">
       <p
         className={`font-[Inter] font-bold text-sm leading-[1.063rem] ${
-          index == 0 ? 'text-[#4EA8DE]' : 'text-[#8284fa]'
+          index === 0 ? 'text-[#4EA8DE]' : 'text-[#8284fa]'
         }`}
       >
         {title}

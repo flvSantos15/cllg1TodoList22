@@ -4,12 +4,14 @@ import { useTask } from '../../context/useTask'
 
 interface EditTodoFormProps {
   taskId: number
+  taskText: string
   status: boolean
   onCloseDialog: () => void
 }
 
 export function EditTodoForm({
   taskId,
+  taskText,
   status,
   onCloseDialog
 }: EditTodoFormProps) {
@@ -39,7 +41,8 @@ export function EditTodoForm({
       <input
         type="text"
         placeholder="Editar tarefa"
-        value={taskValue}
+        // value={taskValue}
+        defaultValue={taskText}
         onChange={handleEditTask}
         onInvalid={handleNewCommentInvalid}
         required

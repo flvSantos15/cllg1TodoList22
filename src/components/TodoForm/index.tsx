@@ -18,10 +18,11 @@ export function TodoForm() {
     event.target.setCustomValidity('Este campo é obrigatório!')
   }
 
+  // essa função sera trocada pelo dispatch de add do redux
   const handleAddTask = () => {
     const newTask = {
       id: new Date().getTime(),
-      task: taskValue,
+      name: taskValue,
       isCompleted: false
     }
 

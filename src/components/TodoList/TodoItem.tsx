@@ -87,6 +87,7 @@ export function TodoItem({
                 <EditTodoForm
                   taskId={taskId}
                   status={isCompleted}
+                  taskText={taskTitle}
                   onCloseDialog={() => setIsDialogOpen(false)}
                 />
               </Dialog.Content>

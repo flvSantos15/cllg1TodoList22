@@ -5,10 +5,12 @@ import {
   useEffect,
   useState
 } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { addTodo, editTodo, removeTodo } from '../redux/slice'
 
 export type TTask = {
   id: number
-  task: string
+  name: string
   isCompleted: boolean
 }
 
@@ -16,7 +18,7 @@ interface ITaskContextData {
   task: TTask[]
   getTask: (value: TTask) => void
   removeTask: (id: number) => void
-  getTaskToEdit: (id: number, task: string, status: boolean) => void
+  getTaskToEdit: (id: number, name: string, isCompleted: boolean) => void
 }
 
 interface ITaskProviderProps {
@@ -26,6 +28,9 @@ interface ITaskProviderProps {
 export const TaskContext = createContext({} as ITaskContextData)
 
 export function TaskProvider({ children }: ITaskProviderProps) {
+  const dispatch = useDispatch()
+  const todo = useSelector((state) => state) as TTask[]
+
   const [task, setTask] = useState<TTask[]>(() => {
     const todoStorate = localStorage.getItem('@todo-list')
 
@@ -37,34 +42,58 @@ export function TaskProvider({ children }: ITaskProviderProps) {
   })
 
   const getTask = (value: TTask) => {
-    setTask((state) => [...state, value])
+    // setTask((state) => [...state, value])
+    dispatch(addTodo(value))
   }
 
-  const removeTask = (idTask: number) => {
-    setTask((state) => {
-      return state.filter((task) => task.id !== idTask)
-    })
+  const removeTask = (id: number) => {
+    dispatch(removeTodo(id))
   }
 
-  const getTaskToEdit = (id: number, taskText: string, taskStatus: boolean) => {
+  const getTaskToEdit = (id: number, name: string, isCompleted: boolean) => {
     const newTaskList = task.map((t) =>
       t.id === id
         ? {
             ...t,
-            task: taskText,
-            isCompleted: taskStatus
+            name,
+            isCompleted
           }
         : t
     )
 
-    setTask(newTaskList)
+    dispatch(addTodo(newTaskList))
   }
 
+  // useEffect(() => {
+  //   if (task) {
+  //     localStorage.setItem('@todo-list', JSON.stringify(task))
+  //   }
+  // }, [task])
+
+  // useEffect(() => {
+  //   const todoStorate = localStorage.getItem('@todo-list')
+
+  //   if (todoStorate) {
+  //     dispatch(addTodo(JSON.parse(todoStorate) as TTask[]))
+  //   } else {
+  //     dispatch(addTodo([]))
+  //   }
+  // }, [])
+
   useEffect(() => {
-    if (task) {
-      localStorage.setItem('@todo-list', JSON.stringify(task))
+    if (todo.length > 1) {
+      const newTodoArray = todo.filter((item) => item.name !== '')
+
+      newTodoArray.reduce((acc: TTask[], curr) => {
+        if (acc.indexOf(curr) < 0) acc.push(curr)
+
+        return acc
+      }, [])
+
+      setTask(newTodoArray)
+      localStorage.setItem('@todo-list', JSON.stringify(newTodoArray))
     }
-  }, [task])
+  }, [todo])
 
   return (
     <TaskContext.Provider value={{ task, getTask, removeTask, getTaskToEdit }}>
