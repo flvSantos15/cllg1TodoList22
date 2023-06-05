@@ -1,7 +1,7 @@
 - [ ] Install and configure firebase
 - [x] Install and configure redux
-- [ ] Install and configure redux toolkit
-- [ ] Replace context api for redux
+- [x] Install and configure redux toolkit
+- [x] Replace context api for redux
 - [ ] Replace localStorage for firebase
 - [ ] Use localStorage and firebase to salve notes
 

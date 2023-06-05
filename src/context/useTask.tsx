@@ -42,12 +42,13 @@ export function TaskProvider({ children }: ITaskProviderProps) {
   })
 
   const getTask = (value: TTask) => {
-    // setTask((state) => [...state, value])
-    dispatch(addTodo(value))
+    setTask((state) => [...state, value])
+    // dispatch(addTodo(value))
   }
 
   const removeTask = (id: number) => {
-    dispatch(removeTodo(id))
+    setTask((state) => state.filter((item) => item.id !== id))
+    // dispatch(removeTodo(id))
   }
 
   const getTaskToEdit = (id: number, name: string, isCompleted: boolean) => {
@@ -61,14 +62,15 @@ export function TaskProvider({ children }: ITaskProviderProps) {
         : t
     )
 
-    dispatch(addTodo(newTaskList))
+    setTask(newTaskList)
+    // dispatch(addTodo(newTaskList))
   }
 
-  // useEffect(() => {
-  //   if (task) {
-  //     localStorage.setItem('@todo-list', JSON.stringify(task))
-  //   }
-  // }, [task])
+  useEffect(() => {
+    if (task) {
+      localStorage.setItem('@todo-list', JSON.stringify(task))
+    }
+  }, [task])
 
   // useEffect(() => {
   //   const todoStorate = localStorage.getItem('@todo-list')
@@ -80,20 +82,20 @@ export function TaskProvider({ children }: ITaskProviderProps) {
   //   }
   // }, [])
 
-  useEffect(() => {
-    if (todo.length > 1) {
-      const newTodoArray = todo.filter((item) => item.name !== '')
+  // useEffect(() => {
+  //   if (todo.length > 1) {
+  //     const newTodoArray = todo.filter((item) => item.name !== '')
 
-      newTodoArray.reduce((acc: TTask[], curr) => {
-        if (acc.indexOf(curr) < 0) acc.push(curr)
+  //     newTodoArray.reduce((acc: TTask[], curr) => {
+  //       if (acc.indexOf(curr) < 0) acc.push(curr)
 
-        return acc
-      }, [])
+  //       return acc
+  //     }, [])
 
-      setTask(newTodoArray)
-      localStorage.setItem('@todo-list', JSON.stringify(newTodoArray))
-    }
-  }, [todo])
+  //     setTask(newTodoArray)
+  //     localStorage.setItem('@todo-list', JSON.stringify(newTodoArray))
+  //   }
+  // }, [todo])
 
   return (
     <TaskContext.Provider value={{ task, getTask, removeTask, getTaskToEdit }}>
