@@ -43,12 +43,10 @@ export function TaskProvider({ children }: ITaskProviderProps) {
 
   const getTask = (value: TTask) => {
     setTask((state) => [...state, value])
-    // dispatch(addTodo(value))
   }
 
   const removeTask = (id: number) => {
     setTask((state) => state.filter((item) => item.id !== id))
-    // dispatch(removeTodo(id))
   }
 
   const getTaskToEdit = (id: number, name: string, isCompleted: boolean) => {
@@ -63,7 +61,6 @@ export function TaskProvider({ children }: ITaskProviderProps) {
     )
 
     setTask(newTaskList)
-    // dispatch(addTodo(newTaskList))
   }
 
   useEffect(() => {
@@ -71,31 +68,6 @@ export function TaskProvider({ children }: ITaskProviderProps) {
       localStorage.setItem('@todo-list', JSON.stringify(task))
     }
   }, [task])
-
-  // useEffect(() => {
-  //   const todoStorate = localStorage.getItem('@todo-list')
-
-  //   if (todoStorate) {
-  //     dispatch(addTodo(JSON.parse(todoStorate) as TTask[]))
-  //   } else {
-  //     dispatch(addTodo([]))
-  //   }
-  // }, [])
-
-  // useEffect(() => {
-  //   if (todo.length > 1) {
-  //     const newTodoArray = todo.filter((item) => item.name !== '')
-
-  //     newTodoArray.reduce((acc: TTask[], curr) => {
-  //       if (acc.indexOf(curr) < 0) acc.push(curr)
-
-  //       return acc
-  //     }, [])
-
-  //     setTask(newTodoArray)
-  //     localStorage.setItem('@todo-list', JSON.stringify(newTodoArray))
-  //   }
-  // }, [todo])
 
   return (
     <TaskContext.Provider value={{ task, getTask, removeTask, getTaskToEdit }}>
