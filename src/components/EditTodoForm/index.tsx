@@ -46,12 +46,14 @@ export function EditTodoForm({
         onChange={handleEditTask}
         onInvalid={handleNewCommentInvalid}
         required
+        data-cy="taskEditInput"
         className="flex items-center w-full h-[3.375rem] rounded-lg p-4 gap-2 border border-solid border-[#0d0d0d] gray-500 focus:border focus:border-solid focus:border-[#5E60CE] outline-none"
       />
       <button
         type="submit"
         onClick={handleAddTask}
         disabled={isNewTaskEmpty}
+        data-cy="editSubmitButton"
         className="flex items-center justify-center w-full h-[3.25rem] p-4 gap-2 blue-dark rounded-lg transition delay-50 ease-in-out enabled:hover:bg-[#4ea8de] disabled:cursor-not-allowed"
       >
         Salvar

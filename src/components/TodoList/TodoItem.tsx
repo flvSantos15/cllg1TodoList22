@@ -34,7 +34,10 @@ export function TodoItem({
 
   return (
     <>
-      <div className="flex justify-between items-center p-4 gap-3 w-full h-[4.5rem] bg-[#262626] border border-solid border-[#333333] shadow-[0px_2px_8px_rgba(0,0,0,0.06)] rounded-lg text-xl sm:text-base">
+      <div
+        data-cy="taskExists"
+        className="flex justify-between items-center p-4 gap-3 w-full h-[4.5rem] bg-[#262626] border border-solid border-[#333333] shadow-[0px_2px_8px_rgba(0,0,0,0.06)] rounded-lg text-xl sm:text-base"
+      >
         <div className="flex items-center gap-3">
           {isCompleted ? (
             <>
@@ -46,6 +49,7 @@ export function TodoItem({
 
               <p
                 className="font-[Inter] font-normal text-sm text-[#808080] flex-1 w-full line-through cursor-pointer"
+                data-cy="taskMarked"
                 onClick={onCheckTask}
               >
                 {taskTitle}
@@ -61,6 +65,7 @@ export function TodoItem({
 
               <p
                 className="font-[Inter] font-normal text-sm text-[#f2f2f2] flex-1 w-full cursor-pointer"
+                data-cy="taskNotMarked"
                 onClick={onCheckTask}
               >
                 {taskTitle}
@@ -73,6 +78,7 @@ export function TodoItem({
           <Dialog.Root open={isDialogOpen} onOpenChange={handleOpenDialog}>
             <Dialog.Trigger
               type="button"
+              data-cy="editTaskButton"
               className="flex items-center justify-center w-[1.5rem] h-[1.5rem]"
             >
               <MdModeEditOutline color="#4ea8de" />
@@ -83,7 +89,7 @@ export function TodoItem({
                 <Dialog.Close className="absolute right-6 top-6 text-zinc-400 hover:text-zinc-200">
                   <MdClose size={24} aria-label="Fechar" />
                 </Dialog.Close>
-                <Dialog.Title>Editar todo</Dialog.Title>
+                <Dialog.Title data-cy="editModal">Editar todo</Dialog.Title>
                 <EditTodoForm
                   taskId={taskId}
                   status={isCompleted}
@@ -96,6 +102,7 @@ export function TodoItem({
 
           <button
             onClick={onRemoveTask}
+            data-cy="removeTaskButton"
             className="flex items-center justify-center w-[1.5rem] h-[1.5rem]"
           >
             <HiOutlineTrash color="#fa0404" />
@@ -109,7 +116,10 @@ export function TodoItem({
         <AlertDialog.Portal>
           <AlertDialog.Overlay className="bg-[#0d0d0d73] fixed inset-0" />
           <AlertDialog.Content className="bg-[#262626] rounded-md fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-[90vw] max-w-[500px] max-h-[85vh] p-[25px] focus:outline-none">
-            <AlertDialog.Description className="mb-5 text-base">
+            <AlertDialog.Description
+              data-cy="editModalValidation"
+              className="mb-5 text-base"
+            >
               Tarefas marcadas como concluídas não podem ser editadas.
             </AlertDialog.Description>
             <AlertDialog.Cancel asChild>
