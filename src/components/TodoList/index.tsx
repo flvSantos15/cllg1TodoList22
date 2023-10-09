@@ -42,14 +42,12 @@ export function TodoList() {
         <TodoListTitle
           title="Tarefas criadas"
           index={0}
-          data-cy="createdTaskCount"
           subtitle={String(todo.length)}
         />
 
         <TodoListTitle
           title="Concluídas"
           index={1}
-          data-cy="finishedTaskCount"
           subtitle={
             !todo.length ? '0' : `${completedTodo.length} de ${todo.length}`
           }

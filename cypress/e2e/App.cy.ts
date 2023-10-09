@@ -65,6 +65,19 @@ describe('Todo App', () => {
   })
 
   // O contador de tarefas concluidas deve funcionar
+  it('should be counting completed tasks', () => {
+    cy.visit('/')
+    cy.wait(1000)
+    cy.get('[data-cy="noTaskMsg"]').should('be.visible')
+    cy.wait(1000)
+    cy.get('[data-cy="Tarefas criadas"]').should('have.text', '0')
+    cy.wait(1000)
+    cy.get('[data-cy="taskField"]').type('Testando contador de tarefas criadas')
+    cy.wait(1000)
+    cy.get('[data-cy="submitTask"]').click()
+    cy.wait(1000)
+    cy.get('[data-cy="Tarefas criadas"]').should('have.text', '1')
+  })
 
   // O contador de tarefas criadas deve funcionar
 

@@ -15,7 +15,10 @@ export function TodoListTitle({ title, subtitle, index }: TodoListTitleProps) {
         {title}
       </p>
       <div className="flex items-center h-[1.188rem] py-0.5 px-2 gray-400 rounded-[62.438rem]">
-        <p className="font-[Inter] font-bold text-sm leading-[1.063rem] text-[#d9d9d9]">
+        <p
+          data-cy={`${title}`}
+          className="font-[Inter] font-bold text-sm leading-[1.063rem] text-[#d9d9d9]"
+        >
           {subtitle}
         </p>
       </div>
