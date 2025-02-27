@@ -1,14 +1,15 @@
-import { useState } from 'react'
-import * as Dialog from '@radix-ui/react-dialog'
-import * as AlertDialog from '@radix-ui/react-alert-dialog'
+import { useState } from "react"
+import * as Dialog from "@radix-ui/react-dialog"
+import * as AlertDialog from "@radix-ui/react-alert-dialog"
 
-import { EditTodoForm } from '../EditTodoForm'
+import { EditTodoForm } from "../EditTodoForm"
 
-import { BsCheckCircleFill, BsCircle } from 'react-icons/bs'
-import { HiOutlineTrash } from 'react-icons/hi'
-import { MdModeEditOutline, MdClose } from 'react-icons/md'
+import { BsCheckCircleFill, BsCircle } from "react-icons/bs"
+import { HiOutlineTrash } from "react-icons/hi"
+import { MdModeEditOutline, MdClose } from "react-icons/md"
 
 interface TodoItemProps {
+  index: number
   isCompleted: boolean
   taskTitle: string
   taskId: number
@@ -21,7 +22,8 @@ export function TodoItem({
   taskId,
   taskTitle,
   onCheckTask,
-  onRemoveTask
+  onRemoveTask,
+  index
 }: TodoItemProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [isAlertModalOpen, setIsAlerModalOpen] = useState(false)
@@ -52,7 +54,7 @@ export function TodoItem({
                 data-cy="taskMarked"
                 onClick={onCheckTask}
               >
-                {taskTitle}
+                {index} {taskTitle}
               </p>
             </>
           ) : (
@@ -68,7 +70,7 @@ export function TodoItem({
                 data-cy="taskNotMarked"
                 onClick={onCheckTask}
               >
-                {taskTitle}
+                {index} {taskTitle}
               </p>
             </>
           )}

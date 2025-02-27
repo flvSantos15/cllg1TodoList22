@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react"
 
-import { TTask, useTask } from '../../context/useTask'
+import { TTask, useTask } from "../../context/useTask"
 
-import { TodoListTitle } from './TodoListTitle'
-import { TodoItem } from './TodoItem'
-import { NoTodoCard } from './NoTodoCard'
+import { TodoListTitle } from "./TodoListTitle"
+import { TodoItem } from "./TodoItem"
+import { NoTodoCard } from "./NoTodoCard"
 
 export function TodoList() {
   const { task, removeTask, getTaskToEdit } = useTask()
@@ -37,7 +37,7 @@ export function TodoList() {
   }, [todo])
 
   return (
-    <div className="flex flex-col items-start m-auto my-16 p-0 gap-6 w-[90%] xl:w-[55%] md:w-[75%] sm:w-[90%]">
+    <div className="flex flex-col items-start m-auto mt-16 p-0 gap-6 w-[90%] xl:w-[55%] md:w-[75%] sm:w-[90%]">
       <div className="flex flex-col xl:flex-row md:flex-row sm:flex-row justify-between items-start xl:items-end md:items-end sm:items-end p-0 gap-2 w-full">
         <TodoListTitle
           title="Tarefas criadas"
@@ -49,32 +49,35 @@ export function TodoList() {
           title="Concluídas"
           index={1}
           subtitle={
-            !todo.length ? '0' : `${completedTodo.length} de ${todo.length}`
+            !todo.length ? "0" : `${completedTodo.length} de ${todo.length}`
           }
         />
       </div>
 
-      <div className="flex flex-col justify-center items-center gap-4 w-full rounded-lg border-t border-t-solid border-t-[#333333]">
-        {!todo.length ? (
-          <NoTodoCard />
-        ) : (
-          <>
-            {todo
-              .map((t) => {
-                return (
-                  <TodoItem
-                    key={t.id}
-                    taskTitle={t.name}
-                    taskId={t.id}
-                    isCompleted={t.isCompleted}
-                    onCheckTask={() => handleCheckTask(t)}
-                    onRemoveTask={() => handleRemoveTask(t.id)}
-                  />
-                )
-              })
-              .reverse()}
-          </>
-        )}
+      <div className="w-full overflow-y-auto max-h-[58vh]">
+        <div className="flex flex-col justify-center items-center gap-4 w-full rounded-lg border-t border-t-solid border-t-[#333333]">
+          {!todo.length ? (
+            <NoTodoCard />
+          ) : (
+            <>
+              {todo
+                .map((t, i) => {
+                  return (
+                    <TodoItem
+                      key={t.id}
+                      index={i + 1}
+                      taskTitle={t.name}
+                      taskId={t.id}
+                      isCompleted={t.isCompleted}
+                      onCheckTask={() => handleCheckTask(t)}
+                      onRemoveTask={() => handleRemoveTask(t.id)}
+                    />
+                  )
+                })
+                .reverse()}
+            </>
+          )}
+        </div>
       </div>
     </div>
   )
