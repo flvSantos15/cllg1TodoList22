@@ -1,12 +1,4 @@
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState
-} from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { addTodo, editTodo, removeTodo } from "../redux/slice"
+import { createContext, ReactNode, useEffect, useState } from "react"
 import {
   createTodoFirebaseService,
   getTodosFirebaseService
@@ -32,21 +24,9 @@ interface ITaskProviderProps {
 export const TaskContext = createContext({} as ITaskContextData)
 
 export function TaskProvider({ children }: ITaskProviderProps) {
-  const dispatch = useDispatch()
-  const todo = useSelector((state) => state) as TTask[]
-
-  const [task, setTask] = useState<TTask[]>(() => {
-    const todoStorate = localStorage.getItem("@todo-list")
-
-    if (todoStorate) {
-      return JSON.parse(todoStorate) as TTask[]
-    } else {
-      return []
-    }
-  })
+  const [task, setTask] = useState<TTask[]>([])
 
   const getTask = (value: TTask) => {
-    setTask((state) => [...state, value])
     createTodoFirebaseService({
       name: value.name,
       isCompleted: value.isCompleted
@@ -83,9 +63,6 @@ export function TaskProvider({ children }: ITaskProviderProps) {
 
   useEffect(() => {
     getTasksData()
-    // if (task) {
-    //   localStorage.setItem("@todo-list", JSON.stringify(task))
-    // }
   }, [])
 
   return (
@@ -93,8 +70,4 @@ export function TaskProvider({ children }: ITaskProviderProps) {
       {children}
     </TaskContext.Provider>
   )
-}
-
-export const useTask = () => {
-  return useContext(TaskContext)
 }

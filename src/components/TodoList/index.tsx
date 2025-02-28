@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 
-import { TTask, useTask } from "../../context/useTask"
+import { TTask } from "../../context/task.context"
+import { useTask } from "../../hooks/useTask"
 
 import { TodoListTitle } from "./TodoListTitle"
 import { TodoItem } from "./TodoItem"

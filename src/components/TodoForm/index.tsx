@@ -1,10 +1,8 @@
 import { ChangeEvent, InvalidEvent, useState } from "react"
 
-import { useTask } from "../../context/useTask"
+import { useTask } from "../../hooks/useTask"
 
 import plusIcon from "/assets/plus.svg"
-import store from "../../redux/store"
-import { addTodo } from "../../redux/slice"
 
 export function TodoForm() {
   const { getTask } = useTask()

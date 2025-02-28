@@ -1,6 +1,6 @@
 import { ChangeEvent, InvalidEvent, useState } from "react"
 
-import { useTask } from "../../context/useTask"
+import { useTask } from "../../hooks/useTask"
 import { Input } from "./Input"
 
 interface EditTodoFormProps {
