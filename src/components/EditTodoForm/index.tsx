@@ -1,6 +1,7 @@
-import { ChangeEvent, InvalidEvent, useState } from 'react'
+import { ChangeEvent, InvalidEvent, useState } from "react"
 
-import { useTask } from '../../context/useTask'
+import { useTask } from "../../context/useTask"
+import { Input } from "./Input"
 
 interface EditTodoFormProps {
   taskId: number
@@ -17,20 +18,20 @@ export function EditTodoForm({
 }: EditTodoFormProps) {
   const { getTaskToEdit, task } = useTask()
 
-  const [taskValue, setTaskValue] = useState('')
+  const [taskValue, setTaskValue] = useState("")
 
   const handleEditTask = (event: ChangeEvent<HTMLInputElement>) => {
-    event.target.setCustomValidity('')
+    event.target.setCustomValidity("")
     setTaskValue(event.target.value)
   }
 
   const handleNewCommentInvalid = (event: InvalidEvent<HTMLInputElement>) => {
-    event.target.setCustomValidity('Este campo é obrigatório!')
+    event.target.setCustomValidity("Este campo é obrigatório!")
   }
 
   const handleAddTask = () => {
     getTaskToEdit(taskId, taskValue, status)
-    setTaskValue('')
+    setTaskValue("")
     onCloseDialog()
   }
 
@@ -38,17 +39,12 @@ export function EditTodoForm({
 
   return (
     <form className="flex flex-col items-center m-auto gap-4 w-full">
-      <input
-        type="text"
-        placeholder="Editar tarefa"
-        // value={taskValue}
-        defaultValue={taskText}
-        onChange={handleEditTask}
-        onInvalid={handleNewCommentInvalid}
-        required
-        data-cy="taskEditInput"
-        className="flex items-center w-full h-[3.375rem] rounded-lg p-4 gap-2 border border-solid border-[#0d0d0d] gray-500 focus:border focus:border-solid focus:border-[#5E60CE] outline-none"
+      <Input
+        taskText={taskText}
+        handleEditTask={handleEditTask}
+        handleNewCommentInvalid={handleNewCommentInvalid}
       />
+
       <button
         type="submit"
         onClick={handleAddTask}

@@ -1,21 +1,23 @@
-import { ChangeEvent, InvalidEvent, useState } from 'react'
+import { ChangeEvent, InvalidEvent, useState } from "react"
 
-import { useTask } from '../../context/useTask'
+import { useTask } from "../../context/useTask"
 
-import plusIcon from '/assets/plus.svg'
+import plusIcon from "/assets/plus.svg"
+import store from "../../redux/store"
+import { addTodo } from "../../redux/slice"
 
 export function TodoForm() {
   const { getTask } = useTask()
 
-  const [taskValue, setTaskValue] = useState('')
+  const [taskValue, setTaskValue] = useState("")
 
   const handleCreateNewTask = (event: ChangeEvent<HTMLInputElement>) => {
-    event.target.setCustomValidity('')
+    event.target.setCustomValidity("")
     setTaskValue(event.target.value)
   }
 
   const handleNewCommentInvalid = (event: InvalidEvent<HTMLInputElement>) => {
-    event.target.setCustomValidity('Este campo é obrigatório!')
+    event.target.setCustomValidity("Este campo é obrigatório!")
   }
 
   // essa função sera trocada pelo dispatch de add do redux
@@ -27,7 +29,7 @@ export function TodoForm() {
     }
 
     getTask(newTask)
-    setTaskValue('')
+    setTaskValue("")
   }
 
   const isNewTaskEmpty = taskValue ? false : true
@@ -42,7 +44,7 @@ export function TodoForm() {
         onInvalid={handleNewCommentInvalid}
         required
         data-cy="taskField"
-        className="flex items-center flex-1 w-full h-[3.375rem] rounded-lg p-4 gap-2 border border-solid border-[#0d0d0d] gray-500 focus:border focus:border-solid focus:border-[#5E60CE] outline-none"
+        className="flex items-center flex-1 w-full h-[3.375rem] rounded-lg p-4 gap-2 border border-solid border-[#0d0d0d] gray-500 focus:border focus:border-solid focus:border-[#5E60CE] hover:border-[#5E60CE] outline-none"
       />
       <button
         type="submit"

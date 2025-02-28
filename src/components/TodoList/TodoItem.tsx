@@ -9,7 +9,6 @@ import { HiOutlineTrash } from "react-icons/hi"
 import { MdModeEditOutline, MdClose } from "react-icons/md"
 
 interface TodoItemProps {
-  index: number
   isCompleted: boolean
   taskTitle: string
   taskId: number
@@ -22,8 +21,7 @@ export function TodoItem({
   taskId,
   taskTitle,
   onCheckTask,
-  onRemoveTask,
-  index
+  onRemoveTask
 }: TodoItemProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [isAlertModalOpen, setIsAlerModalOpen] = useState(false)
@@ -54,7 +52,7 @@ export function TodoItem({
                 data-cy="taskMarked"
                 onClick={onCheckTask}
               >
-                {index} {taskTitle}
+                {taskTitle}
               </p>
             </>
           ) : (
@@ -70,7 +68,7 @@ export function TodoItem({
                 data-cy="taskNotMarked"
                 onClick={onCheckTask}
               >
-                {index} {taskTitle}
+                {taskTitle}
               </p>
             </>
           )}

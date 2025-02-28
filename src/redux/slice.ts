@@ -1,11 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit"
 
 const todoSlice = createSlice({
-  name: 'todos',
+  name: "todos",
   initialState: [
     {
       id: 0,
-      name: '',
+      name: "",
       isCompleted: false
     }
   ],

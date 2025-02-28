@@ -65,7 +65,6 @@ export function TodoList() {
                   return (
                     <TodoItem
                       key={t.id}
-                      index={i + 1}
                       taskTitle={t.name}
                       taskId={t.id}
                       isCompleted={t.isCompleted}

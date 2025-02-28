@@ -4,9 +4,13 @@ import {
   useContext,
   useEffect,
   useState
-} from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { addTodo, editTodo, removeTodo } from '../redux/slice'
+} from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { addTodo, editTodo, removeTodo } from "../redux/slice"
+import {
+  createTodoFirebaseService,
+  getTodosFirebaseService
+} from "../shared/services/firebase/todo"
 
 export type TTask = {
   id: number
@@ -32,7 +36,7 @@ export function TaskProvider({ children }: ITaskProviderProps) {
   const todo = useSelector((state) => state) as TTask[]
 
   const [task, setTask] = useState<TTask[]>(() => {
-    const todoStorate = localStorage.getItem('@todo-list')
+    const todoStorate = localStorage.getItem("@todo-list")
 
     if (todoStorate) {
       return JSON.parse(todoStorate) as TTask[]
@@ -43,6 +47,10 @@ export function TaskProvider({ children }: ITaskProviderProps) {
 
   const getTask = (value: TTask) => {
     setTask((state) => [...state, value])
+    createTodoFirebaseService({
+      name: value.name,
+      isCompleted: value.isCompleted
+    })
   }
 
   const removeTask = (id: number) => {
@@ -63,11 +71,22 @@ export function TaskProvider({ children }: ITaskProviderProps) {
     setTask(newTaskList)
   }
 
-  useEffect(() => {
-    if (task) {
-      localStorage.setItem('@todo-list', JSON.stringify(task))
+  const getTasksData = async () => {
+    try {
+      const response = await getTodosFirebaseService()
+
+      setTask(response)
+    } catch (error) {
+      return error
     }
-  }, [task])
+  }
+
+  useEffect(() => {
+    getTasksData()
+    // if (task) {
+    //   localStorage.setItem("@todo-list", JSON.stringify(task))
+    // }
+  }, [])
 
   return (
     <TaskContext.Provider value={{ task, getTask, removeTask, getTaskToEdit }}>
