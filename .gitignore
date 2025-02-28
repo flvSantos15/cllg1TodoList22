@@ -26,5 +26,3 @@ dist-ssr
 *storybook.log
 
 *.env*
-
-firebase.ts
