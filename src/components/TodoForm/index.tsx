@@ -1,54 +1,63 @@
 import { ChangeEvent, InvalidEvent, useState } from "react"
 
+import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+
 import { useTask } from "../../hooks/useTask"
 
 import plusIcon from "/assets/plus.svg"
+import { Input } from "../Input"
+import { useDispatch } from "react-redux"
+import { addTodo } from "../../redux/slice"
+
+const todoSchema = z.object({
+  task: z
+    .string({
+      message: "Tarefa é obrigatória",
+      required_error: "Tarefa é obrigatória"
+    })
+    .min(1, { message: "Tarefa é obrigatória" })
+})
+
+type TodoSchema = z.infer<typeof todoSchema>
 
 export function TodoForm() {
-  const { getTask } = useTask()
+  const { saveTask } = useTask()
+  const dispatch = useDispatch()
 
-  const [taskValue, setTaskValue] = useState("")
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting, errors }
+  } = useForm<TodoSchema>({
+    resolver: zodResolver(todoSchema)
+    // values: {
+    //   name: managedRestaurant?.name ?? "",
+    // },
+  })
 
-  const handleCreateNewTask = (event: ChangeEvent<HTMLInputElement>) => {
-    event.target.setCustomValidity("")
-    setTaskValue(event.target.value)
+  const handleSaveTask = (data: TodoSchema) => {
+    saveTask(data.task)
   }
-
-  const handleNewCommentInvalid = (event: InvalidEvent<HTMLInputElement>) => {
-    event.target.setCustomValidity("Este campo é obrigatório!")
-  }
-
-  // essa função sera trocada pelo dispatch de add do redux
-  const handleAddTask = () => {
-    const newTask = {
-      id: new Date().getTime(),
-      name: taskValue,
-      isCompleted: false
-    }
-
-    getTask(newTask)
-    setTaskValue("")
-  }
-
-  const isNewTaskEmpty = taskValue ? false : true
 
   return (
-    <form className="flex flex-col xl:flex-row md:flex-row sm:flex-col items-center m-auto mt-[-28px] gap-2 w-[90%] xl:w-[55%] md:w-[75%] sm:w-[90%] xl:h-[3.375rem]">
-      <input
-        type="text"
+    <form
+      onSubmit={handleSubmit(handleSaveTask)}
+      className="flex flex-col xl:flex-row md:flex-row sm:flex-col items-center m-auto mt-[-28px] gap-2 w-[90%] xl:w-[55%] md:w-[75%] sm:w-[90%] xl:h-[3.375rem]"
+    >
+      <Input
+        id="task"
         placeholder="Adicione um nova tarefa"
-        value={taskValue}
-        onChange={handleCreateNewTask}
-        onInvalid={handleNewCommentInvalid}
-        required
-        data-cy="taskField"
-        className="flex items-center flex-1 w-full h-[3.375rem] rounded-lg p-4 gap-2 border border-solid border-[#0d0d0d] gray-500 focus:border focus:border-solid focus:border-[#5E60CE] hover:border-[#5E60CE] outline-none"
+        {...register("task")}
       />
+      {/* criar um componente de erro */}
+      {/* {errors.task && <span>{errors.task.message}</span>} */}
+
       <button
         type="submit"
-        onClick={handleAddTask}
-        disabled={isNewTaskEmpty}
         data-cy="submitTask"
+        disabled={isSubmitting}
         className="flex items-center justify-center w-full xl:w-[5.625rem] md:w-[20%] sm:w-full h-[3.25rem] p-4 gap-2 blue-dark rounded-lg transition delay-50 ease-in-out enabled:hover:bg-[#4ea8de] disabled:cursor-not-allowed"
       >
         Criar

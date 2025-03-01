@@ -7,27 +7,20 @@ import { EditTodoForm } from "../EditTodoForm"
 import { BsCheckCircleFill, BsCircle } from "react-icons/bs"
 import { HiOutlineTrash } from "react-icons/hi"
 import { MdModeEditOutline, MdClose } from "react-icons/md"
+import { TTask } from "../../context/task.context"
 
 interface TodoItemProps {
-  isCompleted: boolean
-  taskTitle: string
-  taskId: number
+  todo: TTask
   onCheckTask: () => void
   onRemoveTask: () => void
 }
 
-export function TodoItem({
-  isCompleted,
-  taskId,
-  taskTitle,
-  onCheckTask,
-  onRemoveTask
-}: TodoItemProps) {
+export function TodoItem({ todo, onCheckTask, onRemoveTask }: TodoItemProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [isAlertModalOpen, setIsAlerModalOpen] = useState(false)
 
   const handleOpenDialog = () => {
-    return !isCompleted
+    return !todo.isCompleted
       ? setIsDialogOpen(!isDialogOpen)
       : setIsAlerModalOpen(true)
   }
@@ -39,7 +32,7 @@ export function TodoItem({
         className="flex justify-between items-center p-4 gap-3 w-full h-[4.5rem] bg-[#262626] border border-solid border-[#333333] shadow-[0px_2px_8px_rgba(0,0,0,0.06)] rounded-lg text-xl sm:text-base"
       >
         <div className="flex items-center gap-3">
-          {isCompleted ? (
+          {todo.isCompleted ? (
             <>
               <BsCheckCircleFill
                 color="#8284fa"
@@ -52,7 +45,7 @@ export function TodoItem({
                 data-cy="taskMarked"
                 onClick={onCheckTask}
               >
-                {taskTitle}
+                {todo.name}
               </p>
             </>
           ) : (
@@ -68,7 +61,7 @@ export function TodoItem({
                 data-cy="taskNotMarked"
                 onClick={onCheckTask}
               >
-                {taskTitle}
+                {todo.name}
               </p>
             </>
           )}
@@ -91,9 +84,9 @@ export function TodoItem({
                 </Dialog.Close>
                 <Dialog.Title data-cy="editModal">Editar todo</Dialog.Title>
                 <EditTodoForm
-                  taskId={taskId}
-                  status={isCompleted}
-                  taskText={taskTitle}
+                  taskId={todo.id}
+                  status={todo.isCompleted}
+                  taskText={todo.name}
                   onCloseDialog={() => setIsDialogOpen(false)}
                 />
               </Dialog.Content>

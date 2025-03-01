@@ -1,12 +1,13 @@
-- [ ] Install and configure firebase
-- [x] Install and configure redux
-- [x] Install and configure redux toolkit
-- [x] Replace context api for redux
-- [ ] Replace localStorage for firebase
-- [ ] Use localStorage and firebase to salve notes
+- [x] Install and configure firebase.
+- [x] Install and configure redux.
+- [x] Install and configure redux toolkit.
+- [x] Use firestore to salve notes.
+- [ ] Replace context api for redux.
+- [ ] Remove task from firestore.
+- [ ] Update task from firestore.
+- [ ] Toggle task in firestore.
 
-- Migrate to NextJS
-- NextAuth, signin, signup and signout with github
+- signin, signup and signout.
 - Separate notes for user
 - changes in layout for user photo and name
 - update all tasks as completed

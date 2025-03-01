@@ -12,7 +12,7 @@ export type TTask = {
 
 interface ITaskContextData {
   task: TTask[]
-  getTask: (value: TTask) => void
+  saveTask: (value: string) => void
   removeTask: (id: number) => void
   getTaskToEdit: (id: number, name: string, isCompleted: boolean) => void
 }
@@ -26,10 +26,10 @@ export const TaskContext = createContext({} as ITaskContextData)
 export function TaskProvider({ children }: ITaskProviderProps) {
   const [task, setTask] = useState<TTask[]>([])
 
-  const getTask = (value: TTask) => {
-    createTodoFirebaseService({
-      name: value.name,
-      isCompleted: value.isCompleted
+  const saveTask = async (value: string) => {
+    await createTodoFirebaseService({
+      name: value,
+      isCompleted: false
     })
   }
 
@@ -66,7 +66,7 @@ export function TaskProvider({ children }: ITaskProviderProps) {
   }, [])
 
   return (
-    <TaskContext.Provider value={{ task, getTask, removeTask, getTaskToEdit }}>
+    <TaskContext.Provider value={{ task, saveTask, removeTask, getTaskToEdit }}>
       {children}
     </TaskContext.Provider>
   )

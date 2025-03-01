@@ -10,75 +10,75 @@ import { NoTodoCard } from "./NoTodoCard"
 export function TodoList() {
   const { task, removeTask, getTaskToEdit } = useTask()
 
-  const [todo, setTodo] = useState<TTask[]>([])
+  const [todos, setTodos] = useState<TTask[]>([])
   const [completedTodo, setCompletedTodo] = useState<TTask[]>([])
 
   const handleCheckTask = (task: TTask) => {
-    const { id, name, isCompleted } = task
-    getTaskToEdit(id, name, !isCompleted)
+    alert("Função ainda não implementada")
+    // const { id, name, isCompleted } = task
+    // getTaskToEdit(id, name, !isCompleted)
   }
 
   const handleRemoveTask = (id: number) => {
-    const newTaskList = todo.filter((t) => t.id !== id)
+    alert("Função ainda não implementada")
+    // const newTaskList = todos.filter((t) => t.id !== id)
 
-    setTodo(newTaskList)
-    removeTask(id)
+    // setTodos(newTaskList)
+    // removeTask(id)
   }
 
   useEffect(() => {
-    setTodo(task)
+    setTodos(task)
   }, [task])
 
   useEffect(() => {
     setCompletedTodo(
-      todo.filter((i) => {
+      todos.filter((i) => {
         return i.isCompleted === true
       })
     )
-  }, [todo])
+  }, [todos])
 
   return (
-    <div className="flex flex-col items-start m-auto mt-16 p-0 gap-6 w-[90%] xl:w-[55%] md:w-[75%] sm:w-[90%]">
+    <div className="flex flex-col items-start m-auto my-16 p-0 gap-6 w-[90%] xl:w-[55%] md:w-[75%] sm:w-[90%]">
       <div className="flex flex-col xl:flex-row md:flex-row sm:flex-row justify-between items-start xl:items-end md:items-end sm:items-end p-0 gap-2 w-full">
         <TodoListTitle
           title="Tarefas criadas"
           index={0}
-          subtitle={String(todo.length)}
+          subtitle={String(todos.length)}
         />
 
         <TodoListTitle
           title="Concluídas"
           index={1}
           subtitle={
-            !todo.length ? "0" : `${completedTodo.length} de ${todo.length}`
+            !todos.length ? "0" : `${completedTodo.length} de ${todos.length}`
           }
         />
       </div>
 
-      <div className="w-full overflow-y-auto max-h-[58vh]">
-        <div className="flex flex-col justify-center items-center gap-4 w-full rounded-lg border-t border-t-solid border-t-[#333333]">
-          {!todo.length ? (
-            <NoTodoCard />
-          ) : (
-            <>
-              {todo
-                .map((t, i) => {
-                  return (
-                    <TodoItem
-                      key={t.id}
-                      taskTitle={t.name}
-                      taskId={t.id}
-                      isCompleted={t.isCompleted}
-                      onCheckTask={() => handleCheckTask(t)}
-                      onRemoveTask={() => handleRemoveTask(t.id)}
-                    />
-                  )
-                })
-                .reverse()}
-            </>
-          )}
-        </div>
+      {/* <div className="w-full overflow-y-auto lg:max-h-[58vh] md:max-h-[50vh] border border-yellow-400"> */}
+      <div className="flex flex-col justify-center items-center gap-4 w-full rounded-lg border-t border-t-solid border-t-[#333333]">
+        {!todos.length ? (
+          <NoTodoCard />
+        ) : (
+          <>
+            {todos
+              .map((todo, i) => {
+                return (
+                  <TodoItem
+                    key={`${todo.id}-${i}`}
+                    todo={todo}
+                    onCheckTask={() => handleCheckTask(todo)}
+                    onRemoveTask={() => handleRemoveTask(todo.id)}
+                  />
+                )
+              })
+              .reverse()}
+          </>
+        )}
       </div>
+      {/* </div> */}
     </div>
   )
 }

@@ -51,9 +51,8 @@
     - [x] Delete a to-do
     - [x] Update a to-do as completed
     - [x] Update a to-do as incompleted
-    - [x] Save the to-do list in localStorage
     - [x] Responsiveness
-    - [ ] Integration com Firebase
+    - [x] Integration com Firebase
     - [ ] Redux
 </div>
 

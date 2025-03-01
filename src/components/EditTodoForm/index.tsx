@@ -1,7 +1,7 @@
 import { ChangeEvent, InvalidEvent, useState } from "react"
 
 import { useTask } from "../../hooks/useTask"
-import { Input } from "./Input"
+import { Input } from "../Input"
 
 interface EditTodoFormProps {
   taskId: number
@@ -25,12 +25,9 @@ export function EditTodoForm({
     setTaskValue(event.target.value)
   }
 
-  const handleNewCommentInvalid = (event: InvalidEvent<HTMLInputElement>) => {
-    event.target.setCustomValidity("Este campo é obrigatório!")
-  }
-
   const handleAddTask = () => {
-    getTaskToEdit(taskId, taskValue, status)
+    alert("Função ainda não implementada")
+    // getTaskToEdit(taskId, taskValue, status)
     setTaskValue("")
     onCloseDialog()
   }
@@ -39,11 +36,7 @@ export function EditTodoForm({
 
   return (
     <form className="flex flex-col items-center m-auto gap-4 w-full">
-      <Input
-        taskText={taskText}
-        handleEditTask={handleEditTask}
-        handleNewCommentInvalid={handleNewCommentInvalid}
-      />
+      <Input defaultValue={taskText} onChange={handleEditTask} />
 
       <button
         type="submit"
