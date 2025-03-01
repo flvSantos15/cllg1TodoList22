@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react"
 
-import { TTask } from "../../context/task.context"
 import { useTask } from "../../hooks/useTask"
 
 import { TodoListTitle } from "./TodoListTitle"
 import { TodoItem } from "./TodoItem"
 import { NoTodoCard } from "./NoTodoCard"
+import { TTask } from "../../shared/models/todo"
 
 export function TodoList() {
-  const { task, removeTask, getTaskToEdit } = useTask()
+  const { task, removeTask, updateTask } = useTask()
 
   const [todos, setTodos] = useState<TTask[]>([])
   const [completedTodo, setCompletedTodo] = useState<TTask[]>([])
@@ -19,7 +19,7 @@ export function TodoList() {
     // getTaskToEdit(id, name, !isCompleted)
   }
 
-  const handleRemoveTask = (id: number) => {
+  const handleRemoveTask = (id: string) => {
     alert("Função ainda não implementada")
     // const newTaskList = todos.filter((t) => t.id !== id)
 

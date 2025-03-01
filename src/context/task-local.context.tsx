@@ -5,18 +5,13 @@ import {
   useEffect,
   useState
 } from "react"
-
-export type TTask = {
-  id: number
-  name: string
-  isCompleted: boolean
-}
+import { TTask } from "../shared/models/todo"
 
 interface ITaskLocalContextData {
   task: TTask[]
   getTask: (value: TTask) => void
-  removeTask: (id: number) => void
-  getTaskToEdit: (id: number, name: string, isCompleted: boolean) => void
+  removeTask: (id: string) => void
+  getTaskToEdit: (id: string, name: string, isCompleted: boolean) => void
 }
 
 interface ITaskLocalProviderProps {
@@ -40,11 +35,11 @@ export function TaskLocalProvider({ children }: ITaskLocalProviderProps) {
     setTaskLocal((state) => [...state, value])
   }
 
-  const handleRemoveTask = (id: number) => {
+  const handleRemoveTask = (id: string) => {
     setTaskLocal((state) => state.filter((item) => item.id !== id))
   }
 
-  const getTaskToEdit = (id: number, name: string, isCompleted: boolean) => {
+  const getTaskToEdit = (id: string, name: string, isCompleted: boolean) => {
     const newTaskList = taskLocal.map((t) =>
       t.id === id
         ? {

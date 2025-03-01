@@ -7,7 +7,7 @@ import { EditTodoForm } from "../EditTodoForm"
 import { BsCheckCircleFill, BsCircle } from "react-icons/bs"
 import { HiOutlineTrash } from "react-icons/hi"
 import { MdModeEditOutline, MdClose } from "react-icons/md"
-import { TTask } from "../../context/task.context"
+import { TTask } from "../../shared/models/todo"
 
 interface TodoItemProps {
   todo: TTask
@@ -76,17 +76,19 @@ export function TodoItem({ todo, onCheckTask, onRemoveTask }: TodoItemProps) {
             >
               <MdModeEditOutline color="#4ea8de" />
             </Dialog.Trigger>
+
             <Dialog.Portal>
               <Dialog.Overlay className="w-screen h-screen bg-black/80 fixed inset-0" />
               <Dialog.Content className="absolute flex flex-col gap-4 p-10 bg-zinc-900 rounded-2xl w-full max-w-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                 <Dialog.Close className="absolute right-6 top-6 text-zinc-400 hover:text-zinc-200">
                   <MdClose size={24} aria-label="Fechar" />
                 </Dialog.Close>
+
                 <Dialog.Title data-cy="editModal">Editar todo</Dialog.Title>
+
+                {/* TODO: Aqui usar o redux pra informar o todo */}
                 <EditTodoForm
-                  taskId={todo.id}
-                  status={todo.isCompleted}
-                  taskText={todo.name}
+                  todo={todo}
                   onCloseDialog={() => setIsDialogOpen(false)}
                 />
               </Dialog.Content>

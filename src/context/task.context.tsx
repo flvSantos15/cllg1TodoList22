@@ -1,20 +1,19 @@
 import { createContext, ReactNode, useEffect, useState } from "react"
 import {
   createTodoFirebaseService,
-  getTodosFirebaseService
+  deleteTodoFirebaseService,
+  getTodosFirebaseService,
+  toggleTodoFirebaseService,
+  updateTodoFirebaseService
 } from "../shared/services/firebase/todo"
-
-export type TTask = {
-  id: number
-  name: string
-  isCompleted: boolean
-}
+import { TTask } from "../shared/models/todo"
 
 interface ITaskContextData {
   task: TTask[]
   saveTask: (value: string) => void
-  removeTask: (id: number) => void
-  getTaskToEdit: (id: number, name: string, isCompleted: boolean) => void
+  removeTask: (id: string) => void
+  updateTask: (id: string, name: string) => void
+  toggleTask: (id: string, isCompleted: boolean) => void
 }
 
 interface ITaskProviderProps {
@@ -33,22 +32,34 @@ export function TaskProvider({ children }: ITaskProviderProps) {
     })
   }
 
-  const removeTask = (id: number) => {
-    setTask((state) => state.filter((item) => item.id !== id))
+  const removeTask = async (id: string) => {
+    // setTask((state) => state.filter((item) => item.id !== id))
+    await deleteTodoFirebaseService(id)
   }
 
-  const getTaskToEdit = (id: number, name: string, isCompleted: boolean) => {
-    const newTaskList = task.map((t) =>
-      t.id === id
-        ? {
-            ...t,
-            name,
-            isCompleted
-          }
-        : t
-    )
+  const toggleTask = async (id: string, isCompleted: boolean) => {
+    await toggleTodoFirebaseService({
+      id,
+      isCompleted
+    })
+  }
 
-    setTask(newTaskList)
+  const updateTask = async (id: string, name: string) => {
+    // const newTaskList = task.map((t) =>
+    //   t.id === id
+    //     ? {
+    //         ...t,
+    //         name,
+    //         isCompleted
+    //       }
+    //     : t
+    // )
+
+    // setTask(newTaskList)
+    await updateTodoFirebaseService({
+      id,
+      name
+    })
   }
 
   const getTasksData = async () => {
@@ -66,7 +77,9 @@ export function TaskProvider({ children }: ITaskProviderProps) {
   }, [])
 
   return (
-    <TaskContext.Provider value={{ task, saveTask, removeTask, getTaskToEdit }}>
+    <TaskContext.Provider
+      value={{ task, saveTask, removeTask, updateTask, toggleTask }}
+    >
       {children}
     </TaskContext.Provider>
   )

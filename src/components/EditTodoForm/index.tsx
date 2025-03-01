@@ -2,33 +2,27 @@ import { ChangeEvent, InvalidEvent, useState } from "react"
 
 import { useTask } from "../../hooks/useTask"
 import { Input } from "../Input"
+import { TTask } from "../../shared/models/todo"
 
 interface EditTodoFormProps {
-  taskId: number
-  taskText: string
-  status: boolean
+  todo: TTask
   onCloseDialog: () => void
 }
 
-export function EditTodoForm({
-  taskId,
-  taskText,
-  status,
-  onCloseDialog
-}: EditTodoFormProps) {
-  const { getTaskToEdit, task } = useTask()
+export function EditTodoForm({ todo, onCloseDialog }: EditTodoFormProps) {
+  const { updateTask, task } = useTask()
 
-  const [taskValue, setTaskValue] = useState("")
+  const [todoValue, setTodoValue] = useState("")
 
-  const handleEditTask = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleUpdateTodo = (event: ChangeEvent<HTMLInputElement>) => {
     event.target.setCustomValidity("")
-    setTaskValue(event.target.value)
+    setTodoValue(event.target.value)
   }
 
-  const handleAddTask = () => {
+  const handleAddTodo = () => {
     alert("Função ainda não implementada")
     // getTaskToEdit(taskId, taskValue, status)
-    setTaskValue("")
+    setTodoValue("")
     onCloseDialog()
   }
 
@@ -36,11 +30,11 @@ export function EditTodoForm({
 
   return (
     <form className="flex flex-col items-center m-auto gap-4 w-full">
-      <Input defaultValue={taskText} onChange={handleEditTask} />
+      <Input defaultValue={todo.name} onChange={handleUpdateTodo} />
 
       <button
         type="submit"
-        onClick={handleAddTask}
+        onClick={handleAddTodo}
         disabled={isNewTaskEmpty}
         data-cy="editSubmitButton"
         className="flex items-center justify-center w-full h-[3.25rem] p-4 gap-2 blue-dark rounded-lg transition delay-50 ease-in-out enabled:hover:bg-[#4ea8de] disabled:cursor-not-allowed"

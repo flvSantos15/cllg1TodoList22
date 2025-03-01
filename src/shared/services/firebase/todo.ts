@@ -1,14 +1,9 @@
 import { fireStoreDB } from "./index"
-import { collection, doc, getDocs, setDoc } from "firebase/firestore"
+import { collection, deleteDoc, doc, getDocs, setDoc } from "firebase/firestore"
 import { v4 as uuidV4 } from "uuid"
+import { TTask } from "../../models/todo"
 
 interface ICreateTodoPayload {
-  name: string
-  isCompleted: boolean
-}
-
-export interface ITask {
-  id: number
   name: string
   isCompleted: boolean
 }
@@ -37,7 +32,7 @@ export const createTodoFirebaseService = async ({
   }
 }
 
-export const getTodosFirebaseService = async (): Promise<ITask[]> => {
+export const getTodosFirebaseService = async (): Promise<TTask[]> => {
   const collecttionPath = "todos"
 
   try {
@@ -47,9 +42,68 @@ export const getTodosFirebaseService = async (): Promise<ITask[]> => {
 
     const documents = response.docs?.map((document) =>
       document.data()
-    ) as ITask[]
+    ) as TTask[]
 
     return documents ?? []
+  } catch (error) {
+    // @ts-ignore
+    throw new Error(error)
+  }
+}
+
+interface IUpdateTodoPayload {
+  id: string
+  name: string
+}
+
+export const updateTodoFirebaseService = async ({
+  id,
+  name
+}: IUpdateTodoPayload) => {
+  const collecttionPath = "todos"
+
+  const todoData = {
+    name
+  }
+
+  try {
+    const todoRef = doc(fireStoreDB, collecttionPath, id)
+
+    await setDoc(todoRef, todoData, { merge: true })
+  } catch (error) {
+    // @ts-ignore
+    throw new Error(error)
+  }
+}
+
+interface IToggleTodoPayload {
+  id: string
+  isCompleted: boolean
+}
+
+export const toggleTodoFirebaseService = async ({
+  id,
+  isCompleted
+}: IToggleTodoPayload) => {
+  const collecttionPath = "todos"
+
+  try {
+    const todoRef = doc(fireStoreDB, collecttionPath, id)
+
+    await setDoc(todoRef, { isCompleted }, { merge: true })
+  } catch (error) {
+    // @ts-ignore
+    throw new Error(error)
+  }
+}
+
+export const deleteTodoFirebaseService = async (id: string) => {
+  const collecttionPath = "todos"
+
+  try {
+    const todoRef = doc(fireStoreDB, collecttionPath, id)
+
+    await deleteDoc(todoRef)
   } catch (error) {
     // @ts-ignore
     throw new Error(error)
