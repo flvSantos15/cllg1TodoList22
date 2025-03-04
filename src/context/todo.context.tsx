@@ -30,11 +30,14 @@ export function TodoProvider({ children }: ITodoProviderProps) {
       name: value,
       isCompleted: false,
     });
+
+    await getTodosData();
   };
 
   const removeTodo = async (id: string) => {
-    // setTodo((state) => state.filter((item) => item.id !== id))
     await deleteTodoFirebaseService(id);
+
+    await getTodosData();
   };
 
   const toggleTodo = async (id: string, isCompleted: boolean) => {
@@ -42,6 +45,8 @@ export function TodoProvider({ children }: ITodoProviderProps) {
       id,
       isCompleted,
     });
+
+    await getTodosData();
   };
 
   const updateTodo = async (id: string, name: string) => {
@@ -49,6 +54,8 @@ export function TodoProvider({ children }: ITodoProviderProps) {
       id,
       name,
     });
+
+    await getTodosData();
   };
 
   const getTodosData = async () => {
