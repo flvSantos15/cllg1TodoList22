@@ -7,20 +7,29 @@ import { EditTodoForm } from "../EditTodoForm"
 import { BsCheckCircleFill, BsCircle } from "react-icons/bs"
 import { HiOutlineTrash } from "react-icons/hi"
 import { MdModeEditOutline, MdClose } from "react-icons/md"
-import { TTask } from "../../shared/models/todo"
+import { TTodo } from "../../shared/models/todo"
+import { Alert } from "./Alert"
+import { useDispatch } from "react-redux"
+import { selectTodo } from "../../redux/todo-slice"
 
 interface TodoItemProps {
-  todo: TTask
-  onCheckTask: () => void
-  onRemoveTask: () => void
+  todo: TTodo
+  onToggleTodo: () => void
+  onRemoveTodo: () => void
 }
 
-export function TodoItem({ todo, onCheckTask, onRemoveTask }: TodoItemProps) {
+export function TodoItem({ todo, onToggleTodo, onRemoveTodo }: TodoItemProps) {
+  const dispatch = useDispatch()
+
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [isAlertModalOpen, setIsAlerModalOpen] = useState(false)
 
   const handleOpenDialog = () => {
-    return !todo.isCompleted
+    dispatch(selectTodo(todo))
+
+    const isTodoCompleted = todo.isCompleted
+
+    return !isTodoCompleted
       ? setIsDialogOpen(!isDialogOpen)
       : setIsAlerModalOpen(true)
   }
@@ -32,34 +41,31 @@ export function TodoItem({ todo, onCheckTask, onRemoveTask }: TodoItemProps) {
         className="flex justify-between items-center p-4 gap-3 w-full h-[4.5rem] bg-[#262626] border border-solid border-[#333333] shadow-[0px_2px_8px_rgba(0,0,0,0.06)] rounded-lg text-xl sm:text-base"
       >
         <div className="flex items-center gap-3">
+          {/* TODO: Criar um componente de check e usar o clsx e o redux */}
           {todo.isCompleted ? (
             <>
               <BsCheckCircleFill
                 color="#8284fa"
                 // onClick={() => handleCheckTask(t.id)}
-                onClick={onCheckTask}
+                onClick={onToggleTodo}
               />
 
               <p
                 className="font-[Inter] font-normal text-sm text-[#808080] flex-1 w-full line-through cursor-pointer"
                 data-cy="taskMarked"
-                onClick={onCheckTask}
+                onClick={onToggleTodo}
               >
                 {todo.name}
               </p>
             </>
           ) : (
             <>
-              <BsCircle
-                color="#4ea8de"
-                // onClick={() => handleCheckTask(t.id)}
-                onClick={onCheckTask}
-              />
+              <BsCircle color="#4ea8de" onClick={onToggleTodo} />
 
               <p
                 className="font-[Inter] font-normal text-sm text-[#f2f2f2] flex-1 w-full cursor-pointer"
                 data-cy="taskNotMarked"
-                onClick={onCheckTask}
+                onClick={onToggleTodo}
               >
                 {todo.name}
               </p>
@@ -87,16 +93,13 @@ export function TodoItem({ todo, onCheckTask, onRemoveTask }: TodoItemProps) {
                 <Dialog.Title data-cy="editModal">Editar todo</Dialog.Title>
 
                 {/* TODO: Aqui usar o redux pra informar o todo */}
-                <EditTodoForm
-                  todo={todo}
-                  onCloseDialog={() => setIsDialogOpen(false)}
-                />
+                <EditTodoForm onCloseDialog={() => setIsDialogOpen(false)} />
               </Dialog.Content>
             </Dialog.Portal>
           </Dialog.Root>
 
           <button
-            onClick={onRemoveTask}
+            onClick={onRemoveTodo}
             data-cy="removeTaskButton"
             className="flex items-center justify-center w-[1.5rem] h-[1.5rem]"
           >
@@ -104,27 +107,8 @@ export function TodoItem({ todo, onCheckTask, onRemoveTask }: TodoItemProps) {
           </button>
         </div>
       </div>
-      <AlertDialog.Root
-        open={isAlertModalOpen}
-        onOpenChange={setIsAlerModalOpen}
-      >
-        <AlertDialog.Portal>
-          <AlertDialog.Overlay className="bg-[#0d0d0d73] fixed inset-0" />
-          <AlertDialog.Content className="bg-[#262626] rounded-md fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-[90vw] max-w-[500px] max-h-[85vh] p-[25px] focus:outline-none">
-            <AlertDialog.Description
-              data-cy="editModalValidation"
-              className="mb-5 text-base"
-            >
-              Tarefas marcadas como concluídas não podem ser editadas.
-            </AlertDialog.Description>
-            <AlertDialog.Cancel asChild>
-              <button className="bg-[#161616] inline-flex items-center justify-center rounded-[4px] py-0 px-[15px] text-base font-medium h-[35px]">
-                Ok
-              </button>
-            </AlertDialog.Cancel>
-          </AlertDialog.Content>
-        </AlertDialog.Portal>
-      </AlertDialog.Root>
+
+      <Alert isOpen={isAlertModalOpen} onOpen={setIsAlerModalOpen} />
     </>
   )
 }

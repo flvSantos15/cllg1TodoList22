@@ -1,8 +1,9 @@
-import { configureStore } from '@reduxjs/toolkit'
-import todoReducer from './slice'
+import { configureStore } from "@reduxjs/toolkit"
+import todoReducer from "./slice"
+import selectTodoReducer from "./todo-slice"
 
 const store = configureStore({
-  reducer: todoReducer
+  reducer: selectTodoReducer
 })
 
 export default store

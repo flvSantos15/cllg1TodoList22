@@ -1,16 +1,18 @@
-import { ChangeEvent, InvalidEvent, useState } from "react"
+import { ChangeEvent, useState } from "react"
 
-import { useTask } from "../../hooks/useTask"
+import { useTodo } from "../../hooks/useTodo"
 import { Input } from "../Input"
-import { TTask } from "../../shared/models/todo"
+import { TTodo } from "../../shared/models/todo"
+import { useSelector } from "react-redux"
 
 interface EditTodoFormProps {
-  todo: TTask
   onCloseDialog: () => void
 }
 
-export function EditTodoForm({ todo, onCloseDialog }: EditTodoFormProps) {
-  const { updateTask, task } = useTask()
+export function EditTodoForm({ onCloseDialog }: EditTodoFormProps) {
+  const selectedTodo = useSelector((store: TTodo) => store)
+
+  const { updateTodo, todo: task } = useTodo()
 
   const [todoValue, setTodoValue] = useState("")
 
@@ -30,7 +32,7 @@ export function EditTodoForm({ todo, onCloseDialog }: EditTodoFormProps) {
 
   return (
     <form className="flex flex-col items-center m-auto gap-4 w-full">
-      <Input defaultValue={todo.name} onChange={handleUpdateTodo} />
+      <Input defaultValue={selectedTodo?.name} onChange={handleUpdateTodo} />
 
       <button
         type="submit"

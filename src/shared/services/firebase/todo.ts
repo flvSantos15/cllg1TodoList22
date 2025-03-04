@@ -1,7 +1,7 @@
 import { fireStoreDB } from "./index"
 import { collection, deleteDoc, doc, getDocs, setDoc } from "firebase/firestore"
 import { v4 as uuidV4 } from "uuid"
-import { TTask } from "../../models/todo"
+import { TTodo } from "../../models/todo"
 
 interface ICreateTodoPayload {
   name: string
@@ -32,7 +32,7 @@ export const createTodoFirebaseService = async ({
   }
 }
 
-export const getTodosFirebaseService = async (): Promise<TTask[]> => {
+export const getTodosFirebaseService = async (): Promise<TTodo[]> => {
   const collecttionPath = "todos"
 
   try {
@@ -42,7 +42,7 @@ export const getTodosFirebaseService = async (): Promise<TTask[]> => {
 
     const documents = response.docs?.map((document) =>
       document.data()
-    ) as TTask[]
+    ) as TTodo[]
 
     return documents ?? []
   } catch (error) {

@@ -5,11 +5,11 @@ import {
   useEffect,
   useState
 } from "react"
-import { TTask } from "../shared/models/todo"
+import { TTodo } from "../shared/models/todo"
 
 interface ITaskLocalContextData {
-  task: TTask[]
-  getTask: (value: TTask) => void
+  task: TTodo[]
+  getTask: (value: TTodo) => void
   removeTask: (id: string) => void
   getTaskToEdit: (id: string, name: string, isCompleted: boolean) => void
 }
@@ -21,17 +21,17 @@ interface ITaskLocalProviderProps {
 export const TaskLocalContext = createContext({} as ITaskLocalContextData)
 
 export function TaskLocalProvider({ children }: ITaskLocalProviderProps) {
-  const [taskLocal, setTaskLocal] = useState<TTask[]>(() => {
+  const [taskLocal, setTaskLocal] = useState<TTodo[]>(() => {
     const todoStorate = localStorage.getItem("@todo-list")
 
     if (todoStorate) {
-      return JSON.parse(todoStorate) as TTask[]
+      return JSON.parse(todoStorate) as TTodo[]
     } else {
       return []
     }
   })
 
-  const getTaskToSave = (value: TTask) => {
+  const getTaskToSave = (value: TTodo) => {
     setTaskLocal((state) => [...state, value])
   }
 

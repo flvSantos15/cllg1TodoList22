@@ -1,35 +1,36 @@
 import { useEffect, useState } from "react"
 
-import { useTask } from "../../hooks/useTask"
+import { useTodo } from "../../hooks/useTodo"
 
 import { TodoListTitle } from "./TodoListTitle"
 import { TodoItem } from "./TodoItem"
 import { NoTodoCard } from "./NoTodoCard"
-import { TTask } from "../../shared/models/todo"
+import { TTodo } from "../../shared/models/todo"
 
 export function TodoList() {
-  const { task, removeTask, updateTask } = useTask()
+  const { removeTodo, saveTodo, todo, toggleTodo, updateTodo } = useTodo()
 
-  const [todos, setTodos] = useState<TTask[]>([])
-  const [completedTodo, setCompletedTodo] = useState<TTask[]>([])
+  const [todos, setTodos] = useState<TTodo[]>([])
+  const [completedTodo, setCompletedTodo] = useState<TTodo[]>([])
+  const [isLoading, setIsLoading] = useState(false)
 
-  const handleCheckTask = (task: TTask) => {
-    alert("Função ainda não implementada")
-    // const { id, name, isCompleted } = task
-    // getTaskToEdit(id, name, !isCompleted)
+  const handleToggleTodo = async (todo: TTodo) => {
+    setIsLoading(true)
+    await toggleTodo(todo?.id, !todo?.isCompleted)
+    setIsLoading(false)
   }
 
-  const handleRemoveTask = (id: string) => {
+  const handleRemoveTodo = (id: string) => {
     alert("Função ainda não implementada")
-    // const newTaskList = todos.filter((t) => t.id !== id)
+    // const newTodoList = todos.filter((t) => t.id !== id)
 
-    // setTodos(newTaskList)
-    // removeTask(id)
+    // setTodos(newTodoList)
+    // removeTodo(id)
   }
 
   useEffect(() => {
-    setTodos(task)
-  }, [task])
+    setTodos(todo)
+  }, [todo])
 
   useEffect(() => {
     setCompletedTodo(
@@ -69,8 +70,8 @@ export function TodoList() {
                   <TodoItem
                     key={`${todo.id}-${i}`}
                     todo={todo}
-                    onCheckTask={() => handleCheckTask(todo)}
-                    onRemoveTask={() => handleRemoveTask(todo.id)}
+                    onToggleTodo={() => handleToggleTodo(todo)}
+                    onRemoveTodo={() => handleRemoveTodo(todo.id)}
                   />
                 )
               })

@@ -1,4 +1,4 @@
-export type TTask = {
+export type TTodo = {
   id: string
   name: string
   isCompleted: boolean

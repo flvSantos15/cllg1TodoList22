@@ -4,7 +4,7 @@ import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 
-import { useTask } from "../../hooks/useTask"
+import { useTodo } from "../../hooks/useTodo"
 
 import plusIcon from "/assets/plus.svg"
 import { Input } from "../Input"
@@ -23,7 +23,7 @@ const todoSchema = z.object({
 type TodoSchema = z.infer<typeof todoSchema>
 
 export function TodoForm() {
-  const { saveTask } = useTask()
+  const { saveTask } = useTodo()
   const dispatch = useDispatch()
 
   const {
