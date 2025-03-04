@@ -1,34 +1,34 @@
-import { ChangeEvent, useState } from "react"
+import { ChangeEvent, useState } from "react";
 
-import { useTodo } from "../../hooks/useTodo"
-import { Input } from "../Input"
-import { TTodo } from "../../shared/models/todo"
-import { useSelector } from "react-redux"
+import { useTodo } from "../../hooks/useTodo";
+import { Input } from "../Input";
+import { TTodo } from "../../shared/models/todo";
+import { useSelector } from "react-redux";
 
 interface EditTodoFormProps {
-  onCloseDialog: () => void
+  onCloseDialog: () => void;
 }
 
 export function EditTodoForm({ onCloseDialog }: EditTodoFormProps) {
-  const selectedTodo = useSelector((store: TTodo) => store)
+  const selectedTodo = useSelector((store: TTodo) => store);
 
-  const { updateTodo, todo: task } = useTodo()
+  const { updateTodo, todos } = useTodo();
 
-  const [todoValue, setTodoValue] = useState("")
+  const [todoValue, setTodoValue] = useState("");
 
   const handleUpdateTodo = (event: ChangeEvent<HTMLInputElement>) => {
-    event.target.setCustomValidity("")
-    setTodoValue(event.target.value)
-  }
+    event.target.setCustomValidity("");
+    setTodoValue(event.target.value);
+  };
 
   const handleAddTodo = () => {
-    alert("Função ainda não implementada")
+    alert("Função ainda não implementada");
     // getTaskToEdit(taskId, taskValue, status)
-    setTodoValue("")
-    onCloseDialog()
-  }
+    setTodoValue("");
+    onCloseDialog();
+  };
 
-  const isNewTaskEmpty = task ? false : true
+  const isNewTaskEmpty = todos ? false : true;
 
   return (
     <form className="flex flex-col items-center m-auto gap-4 w-full">
@@ -44,5 +44,5 @@ export function EditTodoForm({ onCloseDialog }: EditTodoFormProps) {
         Salvar
       </button>
     </form>
-  )
+  );
 }

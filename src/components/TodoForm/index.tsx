@@ -1,45 +1,42 @@
-import { ChangeEvent, InvalidEvent, useState } from "react"
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 
-import { z } from "zod"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
+import { useTodo } from "../../hooks/useTodo";
 
-import { useTodo } from "../../hooks/useTodo"
-
-import plusIcon from "/assets/plus.svg"
-import { Input } from "../Input"
-import { useDispatch } from "react-redux"
-import { addTodo } from "../../redux/slice"
+import plusIcon from "/assets/plus.svg";
+import { Input } from "../Input";
+import { useDispatch } from "react-redux";
 
 const todoSchema = z.object({
   task: z
     .string({
       message: "Tarefa é obrigatória",
-      required_error: "Tarefa é obrigatória"
+      required_error: "Tarefa é obrigatória",
     })
-    .min(1, { message: "Tarefa é obrigatória" })
-})
+    .min(1, { message: "Tarefa é obrigatória" }),
+});
 
-type TodoSchema = z.infer<typeof todoSchema>
+type TodoSchema = z.infer<typeof todoSchema>;
 
 export function TodoForm() {
-  const { saveTask } = useTodo()
-  const dispatch = useDispatch()
+  const { saveTodo } = useTodo();
+  const dispatch = useDispatch();
 
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting, errors }
+    formState: { isSubmitting, errors },
   } = useForm<TodoSchema>({
-    resolver: zodResolver(todoSchema)
+    resolver: zodResolver(todoSchema),
     // values: {
     //   name: managedRestaurant?.name ?? "",
     // },
-  })
+  });
 
   const handleSaveTask = (data: TodoSchema) => {
-    saveTask(data.task)
-  }
+    saveTodo(data.task);
+  };
 
   return (
     <form
@@ -64,5 +61,5 @@ export function TodoForm() {
         <img src={plusIcon} alt="plus symbol" />
       </button>
     </form>
-  )
+  );
 }

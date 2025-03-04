@@ -1,44 +1,29 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react";
 
-import { useTodo } from "../../hooks/useTodo"
+import { useTodo } from "../../hooks/useTodo";
 
-import { TodoListTitle } from "./TodoListTitle"
-import { TodoItem } from "./TodoItem"
-import { NoTodoCard } from "./NoTodoCard"
-import { TTodo } from "../../shared/models/todo"
+import { TodoListTitle } from "./TodoListTitle";
+import { TodoItem } from "./TodoItem";
+import { NoTodoCard } from "./NoTodoCard";
+import { TTodo } from "../../shared/models/todo";
 
 export function TodoList() {
-  const { removeTodo, saveTodo, todo, toggleTodo, updateTodo } = useTodo()
+  const { removeTodo, todos, toggleTodo } = useTodo();
 
-  const [todos, setTodos] = useState<TTodo[]>([])
-  const [completedTodo, setCompletedTodo] = useState<TTodo[]>([])
-  const [isLoading, setIsLoading] = useState(false)
+  // const [isLoading, setIsLoading] = useState(false)
+
+  const completedTodo = useCallback(
+    () => todos.filter((todo) => todo.isCompleted),
+    [todos]
+  );
 
   const handleToggleTodo = async (todo: TTodo) => {
-    setIsLoading(true)
-    await toggleTodo(todo?.id, !todo?.isCompleted)
-    setIsLoading(false)
-  }
+    await toggleTodo(todo?.id, !todo?.isCompleted);
+  };
 
-  const handleRemoveTodo = (id: string) => {
-    alert("Função ainda não implementada")
-    // const newTodoList = todos.filter((t) => t.id !== id)
-
-    // setTodos(newTodoList)
-    // removeTodo(id)
-  }
-
-  useEffect(() => {
-    setTodos(todo)
-  }, [todo])
-
-  useEffect(() => {
-    setCompletedTodo(
-      todos.filter((i) => {
-        return i.isCompleted === true
-      })
-    )
-  }, [todos])
+  const handleRemoveTodo = async (id: string) => {
+    await removeTodo(id);
+  };
 
   return (
     <div className="flex flex-col items-start m-auto my-16 p-0 gap-6 w-[90%] xl:w-[55%] md:w-[75%] sm:w-[90%]">
@@ -73,7 +58,7 @@ export function TodoList() {
                     onToggleTodo={() => handleToggleTodo(todo)}
                     onRemoveTodo={() => handleRemoveTodo(todo.id)}
                   />
-                )
+                );
               })
               .reverse()}
           </>
@@ -81,5 +66,5 @@ export function TodoList() {
       </div>
       {/* </div> */}
     </div>
-  )
+  );
 }
