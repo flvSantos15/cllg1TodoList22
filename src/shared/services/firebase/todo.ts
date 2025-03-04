@@ -1,111 +1,118 @@
-import { fireStoreDB } from "./index"
-import { collection, deleteDoc, doc, getDocs, setDoc } from "firebase/firestore"
-import { v4 as uuidV4 } from "uuid"
-import { TTodo } from "../../models/todo"
+import { fireStoreDB } from "./index";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  setDoc,
+} from "firebase/firestore";
+import { v4 as uuidV4 } from "uuid";
+import { TTodo } from "../../models/todo";
 
 interface ICreateTodoPayload {
-  name: string
-  isCompleted: boolean
+  name: string;
+  isCompleted: boolean;
 }
 
 export const createTodoFirebaseService = async ({
   name,
-  isCompleted
+  isCompleted,
 }: ICreateTodoPayload) => {
-  const collecttionPath = "todos"
+  const collecttionPath = "todos";
 
   const todoData = {
     id: uuidV4(),
     name,
-    isCompleted
-  }
+    isCompleted,
+    createdAt: new Date(),
+  };
 
   try {
-    const todoRef = doc(fireStoreDB, collecttionPath, todoData.id)
+    const todoRef = doc(fireStoreDB, collecttionPath, todoData.id);
 
-    await setDoc(todoRef, todoData)
+    await setDoc(todoRef, todoData);
 
-    return todoData
+    return todoData;
   } catch (error) {
-    return error
+    return error;
     // throw new Error(error)
   }
-}
+};
 
 export const getTodosFirebaseService = async (): Promise<TTodo[]> => {
-  const collecttionPath = "todos"
+  const collecttionPath = "todos";
 
   try {
-    const todoRef = collection(fireStoreDB, collecttionPath)
+    const todoRef = collection(fireStoreDB, collecttionPath);
 
-    const response = await getDocs(todoRef)
+    const response = await getDocs(todoRef);
 
     const documents = response.docs?.map((document) =>
       document.data()
-    ) as TTodo[]
+    ) as TTodo[];
 
-    return documents ?? []
+    return documents ?? [];
   } catch (error) {
     // @ts-ignore
-    throw new Error(error)
+    throw new Error(error);
   }
-}
+};
 
 interface IUpdateTodoPayload {
-  id: string
-  name: string
+  id: string;
+  name: string;
 }
 
 export const updateTodoFirebaseService = async ({
   id,
-  name
+  name,
 }: IUpdateTodoPayload) => {
-  const collecttionPath = "todos"
+  const collecttionPath = "todos";
 
   const todoData = {
-    name
-  }
+    name,
+  };
 
   try {
-    const todoRef = doc(fireStoreDB, collecttionPath, id)
+    const todoRef = doc(fireStoreDB, collecttionPath, id);
 
-    await setDoc(todoRef, todoData, { merge: true })
+    await setDoc(todoRef, todoData, { merge: true });
   } catch (error) {
     // @ts-ignore
-    throw new Error(error)
+    throw new Error(error);
   }
-}
+};
 
 interface IToggleTodoPayload {
-  id: string
-  isCompleted: boolean
+  id: string;
+  isCompleted: boolean;
 }
 
 export const toggleTodoFirebaseService = async ({
   id,
-  isCompleted
+  isCompleted,
 }: IToggleTodoPayload) => {
-  const collecttionPath = "todos"
+  const collecttionPath = "todos";
 
   try {
-    const todoRef = doc(fireStoreDB, collecttionPath, id)
+    const todoRef = doc(fireStoreDB, collecttionPath, id);
 
-    await setDoc(todoRef, { isCompleted }, { merge: true })
+    await setDoc(todoRef, { isCompleted }, { merge: true });
   } catch (error) {
     // @ts-ignore
-    throw new Error(error)
+    throw new Error(error);
   }
-}
+};
 
 export const deleteTodoFirebaseService = async (id: string) => {
-  const collecttionPath = "todos"
+  const collecttionPath = "todos";
 
   try {
-    const todoRef = doc(fireStoreDB, collecttionPath, id)
+    const todoRef = doc(fireStoreDB, collecttionPath, id);
 
-    await deleteDoc(todoRef)
+    await deleteDoc(todoRef);
   } catch (error) {
     // @ts-ignore
-    throw new Error(error)
+    throw new Error(error);
   }
-}
+};

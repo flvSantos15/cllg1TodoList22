@@ -1,5 +1,3 @@
-import { useCallback, useEffect, useState } from "react";
-
 import { useTodo } from "../../hooks/useTodo";
 
 import { TodoListTitle } from "./TodoListTitle";
@@ -10,12 +8,7 @@ import { TTodo } from "../../shared/models/todo";
 export function TodoList() {
   const { removeTodo, todos, toggleTodo } = useTodo();
 
-  // const [isLoading, setIsLoading] = useState(false)
-
-  const completedTodo = useCallback(
-    () => todos.filter((todo) => todo.isCompleted),
-    [todos]
-  );
+  const completedTodo = todos.filter((todo) => todo.isCompleted);
 
   const handleToggleTodo = async (todo: TTodo) => {
     await toggleTodo(todo?.id, !todo?.isCompleted);
@@ -26,7 +19,7 @@ export function TodoList() {
   };
 
   return (
-    <div className="flex flex-col items-start m-auto my-16 p-0 gap-6 w-[90%] xl:w-[55%] md:w-[75%] sm:w-[90%]">
+    <div className="flex flex-col items-start m-auto mt-10 mb-16 p-0 gap-6 w-[90%] xl:w-[55%] md:w-[75%] sm:w-[90%]">
       <div className="flex flex-col xl:flex-row md:flex-row sm:flex-row justify-between items-start xl:items-end md:items-end sm:items-end p-0 gap-2 w-full">
         <TodoListTitle
           title="Tarefas criadas"
