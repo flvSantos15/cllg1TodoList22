@@ -1,9 +1,9 @@
 import { ChangeEvent, useState } from "react";
 
-import { useTodo } from "../../hooks/useTodo";
-import { Input } from "../Input";
-import { TTodo } from "../../shared/models/todo";
 import { useSelector } from "react-redux";
+import { useTodo } from "../../hooks/useTodo";
+import { TTodo } from "../../shared/models/todo";
+import { Input } from "../Input";
 
 interface EditTodoFormProps {
   onCloseDialog: () => void;
@@ -24,6 +24,7 @@ export function EditTodoForm({ onCloseDialog }: EditTodoFormProps) {
   const handleAddTodo = () => {
     alert("Função ainda não implementada");
     // getTaskToEdit(taskId, taskValue, status)
+    updateTodo(selectedTodo.id, todoValue);
     setTodoValue("");
     onCloseDialog();
   };
