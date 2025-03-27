@@ -1,38 +1,35 @@
-import { useState } from "react"
-import * as Dialog from "@radix-ui/react-dialog"
-import * as AlertDialog from "@radix-ui/react-alert-dialog"
+import * as Dialog from "@radix-ui/react-dialog";
+import { useState } from "react";
 
-import { EditTodoForm } from "../EditTodoForm"
+import { EditTodoForm } from "../EditTodoForm";
 
-import { BsCheckCircleFill, BsCircle } from "react-icons/bs"
-import { HiOutlineTrash } from "react-icons/hi"
-import { MdModeEditOutline, MdClose } from "react-icons/md"
-import { TTodo } from "../../shared/models/todo"
-import { Alert } from "./Alert"
-import { useDispatch } from "react-redux"
-import { selectTodo } from "../../redux/todo-slice"
+import { BsCheckCircleFill, BsCircle } from "react-icons/bs";
+import { HiOutlineTrash } from "react-icons/hi";
+import { MdClose, MdModeEditOutline } from "react-icons/md";
+import { useDispatch } from "react-redux";
+import { selectTodo } from "../../redux/todo-slice";
+import { TTodo } from "../../shared/models/todo";
+import { Alert } from "./Alert";
 
 interface TodoItemProps {
-  todo: TTodo
-  onToggleTodo: () => void
-  onRemoveTodo: () => void
+  todo: TTodo;
+  onToggleTodo: () => void;
+  onRemoveTodo: () => void;
 }
 
 export function TodoItem({ todo, onToggleTodo, onRemoveTodo }: TodoItemProps) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const [isDialogOpen, setIsDialogOpen] = useState(false)
-  const [isAlertModalOpen, setIsAlerModalOpen] = useState(false)
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isAlertModalOpen, setIsAlerModalOpen] = useState(false);
 
   const handleOpenDialog = () => {
-    dispatch(selectTodo(todo))
+    dispatch(selectTodo(todo));
 
-    const isTodoCompleted = todo.isCompleted
+    const isTodoCompleted = todo.isCompleted;
 
-    return !isTodoCompleted
-      ? setIsDialogOpen(!isDialogOpen)
-      : setIsAlerModalOpen(true)
-  }
+    return !isTodoCompleted ? setIsDialogOpen(true) : setIsAlerModalOpen(true);
+  };
 
   return (
     <>
@@ -110,5 +107,5 @@ export function TodoItem({ todo, onToggleTodo, onRemoveTodo }: TodoItemProps) {
 
       <Alert isOpen={isAlertModalOpen} onOpen={setIsAlerModalOpen} />
     </>
-  )
+  );
 }

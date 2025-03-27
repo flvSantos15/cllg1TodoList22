@@ -9,6 +9,8 @@ interface EditTodoFormProps {
   onCloseDialog: () => void;
 }
 
+// TODO: add react-hook-form here
+
 export function EditTodoForm({ onCloseDialog }: EditTodoFormProps) {
   const selectedTodo = useSelector((store: TTodo) => store);
 
@@ -22,8 +24,6 @@ export function EditTodoForm({ onCloseDialog }: EditTodoFormProps) {
   };
 
   const handleAddTodo = () => {
-    alert("Função ainda não implementada");
-    // getTaskToEdit(taskId, taskValue, status)
     updateTodo(selectedTodo.id, todoValue);
     setTodoValue("");
     onCloseDialog();
