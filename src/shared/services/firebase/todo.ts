@@ -1,4 +1,3 @@
-import { fireStoreDB } from "./index";
 import {
   collection,
   deleteDoc,
@@ -6,8 +5,11 @@ import {
   getDocs,
   setDoc,
 } from "firebase/firestore";
+import { parseCookies } from "nookies";
 import { v4 as uuidV4 } from "uuid";
 import { TTodo } from "../../models/todo";
+import { TUser } from "../../models/user";
+import { fireStoreDB } from "./index";
 
 interface ICreateTodoPayload {
   name: string;
@@ -18,12 +20,20 @@ export const createTodoFirebaseService = async ({
   name,
   isCompleted,
 }: ICreateTodoPayload) => {
-  const collecttionPath = "todos";
+  const { user } = parseCookies();
+  const parsedUser = JSON.parse(user) as TUser;
+
+  if (!parsedUser?.email) {
+    throw new Error("User not found");
+  }
+
+  const collecttionPath = `users/${parsedUser?.email}/todos/`;
 
   const todoData = {
     id: uuidV4(),
     name,
     isCompleted,
+    userId: parsedUser?.email,
     createdAt: new Date(),
   };
 
@@ -40,7 +50,14 @@ export const createTodoFirebaseService = async ({
 };
 
 export const getTodosFirebaseService = async (): Promise<TTodo[]> => {
-  const collecttionPath = "todos";
+  const { user } = parseCookies();
+  const parsedUser = JSON.parse(user) as TUser;
+
+  if (!parsedUser?.email) {
+    throw new Error("User not found");
+  }
+
+  const collecttionPath = `users/${parsedUser?.email}/todos/`;
 
   try {
     const todoRef = collection(fireStoreDB, collecttionPath);
@@ -67,7 +84,14 @@ export const updateTodoFirebaseService = async ({
   id,
   name,
 }: IUpdateTodoPayload) => {
-  const collecttionPath = "todos";
+  const { user } = parseCookies();
+  const parsedUser = JSON.parse(user) as TUser;
+
+  if (!parsedUser?.email) {
+    throw new Error("User not found");
+  }
+
+  const collecttionPath = `users/${parsedUser?.email}/todos/`;
 
   const todoData = {
     name,
@@ -92,7 +116,14 @@ export const toggleTodoFirebaseService = async ({
   id,
   isCompleted,
 }: IToggleTodoPayload) => {
-  const collecttionPath = "todos";
+  const { user } = parseCookies();
+  const parsedUser = JSON.parse(user) as TUser;
+
+  if (!parsedUser?.email) {
+    throw new Error("User not found");
+  }
+
+  const collecttionPath = `users/${parsedUser?.email}/todos/`;
 
   try {
     const todoRef = doc(fireStoreDB, collecttionPath, id);
@@ -105,12 +136,21 @@ export const toggleTodoFirebaseService = async ({
 };
 
 export const deleteTodoFirebaseService = async (id: string) => {
-  const collecttionPath = "todos";
+  const { user } = parseCookies();
+  const parsedUser = JSON.parse(user) as TUser;
+
+  if (!parsedUser?.email) {
+    throw new Error("User not found");
+  }
+
+  const collecttionPath = `users/${parsedUser?.email}/todos/`;
 
   try {
     const todoRef = doc(fireStoreDB, collecttionPath, id);
 
     await deleteDoc(todoRef);
+
+    console.log("deleted!!!");
   } catch (error) {
     // @ts-ignore
     throw new Error(error);

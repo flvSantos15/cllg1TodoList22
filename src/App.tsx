@@ -1,17 +1,7 @@
-import { TodoForm } from "./components/TodoForm"
-import { Header } from "./components/Header"
-import { TodoList } from "./components/TodoList"
+import { Router } from "./Router";
 
 function App() {
-  return (
-    <div>
-      <Header />
-
-      <TodoForm />
-
-      <TodoList />
-    </div>
-  )
+  return <Router />;
 }
 
-export default App
+export default App;

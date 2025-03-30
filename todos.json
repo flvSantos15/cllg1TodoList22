@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Assistir Aulas na faculdade",
+    "isCompleted": true
+  },
+  {
+    "name": "Assistir aula de docker",
+    "isCompleted": true
+  },
+  {
+    "name": "Estudar Francês no Mosalingua",
+    "isCompleted": true
+  },
+  {
+    "name": "Estudar Francês no Duolingo",
+    "isCompleted": true
+  },
+  {
+    "name": "Estudar Francês na Udemy",
+    "isCompleted": false
+  },
+  {
+    "name": "Digitar no MonkeyType",
+    "isCompleted": true
+  },
+  {
+    "name": "Aplicar pra 1 vaga",
+    "isCompleted": false
+  },
+  {
+    "name": "Fazer 1 desafio do leetcode",
+    "isCompleted": true
+  },
+  {
+    "name": "Assistir o vídeo do pythonando",
+    "isCompleted": false
+  },
+  {
+    "name": "Exercicio (30 Flexoes, 25 agachamentos e 30 panturilhas)",
+    "isCompleted": false
+  },
+  {
+    "name": "Beber 2L de água",
+    "isCompleted": false
+  },
+  {
+    "name": "Ler o livro",
+    "isCompleted": false
+  },
+  {
+    "name": "Lavar calça social",
+    "isCompleted": false
+  },
+  {
+    "name": "Subir a funcao de limpar todos para a AWS",
+    "isCompleted": false
+  },
+  {
+    "name": "Criar uma tela anterior a essa para login",
+    "isCompleted": false
+  },
+  {
+    "name": "Trabalhar no projeto do emporio",
+    "isCompleted": false
+  },
+  {
+    "name": "Praticar 2 perguntas de entrevista em ingles",
+    "isCompleted": false
+  },
+  {
+    "name": "Criar uma funcao em python para buscar e limpar todos os todos",
+    "isCompleted": true
+  }
+]

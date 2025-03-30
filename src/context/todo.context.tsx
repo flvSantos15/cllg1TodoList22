@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
+import { TTodo } from "../shared/models/todo";
 import {
   createTodoFirebaseService,
   deleteTodoFirebaseService,
@@ -6,7 +7,6 @@ import {
   toggleTodoFirebaseService,
   updateTodoFirebaseService,
 } from "../shared/services/firebase/todo";
-import { TTodo } from "../shared/models/todo";
 
 interface ITodoContextData {
   todos: TTodo[];

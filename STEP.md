@@ -1,15 +1,15 @@
 Backlog
 
+- [x] Create login page.
+- [x] Add social login with firebase.
+- [x] Configure router dom
 - [ ] Fix edit modal height.
-- [ ] Create login page.
-- [ ] Add social login with firebase.
 - [ ] Create a user table.
 - [ ] Link todos with users.
 - [ ] Add sentry.
 - [ ] Configure storybook.
 - [ ] Apply MVVM archtecture.
 - [ ] Add components tests with react testing library.
-- [ ] Configure router dom
 
 - signin, signup and signout.
 - Separate notes for user.

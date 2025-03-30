@@ -1,12 +1,11 @@
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 import { useTodo } from "../../hooks/useTodo";
 
-import plusIcon from "/assets/plus.svg";
 import { Input } from "../Input";
-import { useDispatch } from "react-redux";
+import plusIcon from "/assets/plus.svg";
 
 const todoSchema = z.object({
   task: z
@@ -21,7 +20,6 @@ type TodoSchema = z.infer<typeof todoSchema>;
 
 export function TodoForm() {
   const { saveTodo } = useTodo();
-  const dispatch = useDispatch();
 
   const {
     register,
