@@ -5,6 +5,7 @@ import {
   signOut,
 } from "firebase/auth";
 import { setCookie } from "nookies";
+import { useNavigate } from "react-router";
 import { TUser } from "../../models/user";
 import { auth } from "./index";
 import {
@@ -12,6 +13,8 @@ import {
   createUserFirebaseService,
   updateUserFirebaseService,
 } from "./user";
+
+const navigate = useNavigate();
 
 // signin with github auth provider
 export const signInWithGithub = async () => {
@@ -51,6 +54,7 @@ export const signInWithGithub = async () => {
     });
     // redirect to home page
     // window.location.href = "/home";
+    navigate("/home");
   } catch (error) {
     console.error("Error signing in with GitHub: ", error);
   }
@@ -94,7 +98,7 @@ export const signInWithGoogle = async () => {
       path: "/",
     });
     // redirect to home page
-    window.location.href = "/home";
+    navigate("/home");
   } catch (error) {
     console.error("Error signing in with GitHub: ", error);
   }
