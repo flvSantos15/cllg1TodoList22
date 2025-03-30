@@ -1,5 +1,6 @@
 import { destroyCookie, parseCookies } from "nookies";
 import { createContext, ReactNode, useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { signOutFirebase } from "../shared/services/firebase/auth";
 
 interface IAuthContextData {
@@ -14,6 +15,8 @@ interface IAuthProviderProps {
 export const AuthContext = createContext({} as IAuthContextData);
 
 async function signOut() {
+  const navigate = useNavigate();
+
   const url = window.location.href;
   const isHomePage = url.includes("/home");
 
@@ -28,10 +31,12 @@ async function signOut() {
 
   await signOutFirebase();
 
-  window.location.href = "/";
+  navigate("/");
 }
 
 export function AuthProvider({ children }: IAuthProviderProps) {
+  const navigate = useNavigate();
+
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
@@ -44,7 +49,7 @@ export function AuthProvider({ children }: IAuthProviderProps) {
       setIsAuthenticated(true);
 
       if (!isHomePage) {
-        window.location.href = "/home";
+        navigate("/home");
       }
     } else {
       signOut();
